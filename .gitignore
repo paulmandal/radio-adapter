@@ -3,4 +3,6 @@ venv
 *.s#*
 *.b#*
 .idea
+*.pro
+*.job
 
