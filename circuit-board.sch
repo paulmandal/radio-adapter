@@ -11474,7 +11474,7 @@ Source:  Data sheet</description>
 <part name="C5" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="CPOL-US" device="E2.5-5" value="10uF"/>
 <part name="P+3" library="SparkFun" deviceset="3.3V" device=""/>
 <part name="R3" library="SparkFun-Resistors" deviceset="2.0KOHM" device="-0603-1/10W-5%" value="2.0k"/>
-<part name="R2" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-TRIMM" device="T93YA" package3d_urn="urn:adsk.eagle:package:26051/1"/>
+<part name="R2" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-TRIMM" device="T93YA" package3d_urn="urn:adsk.eagle:package:26051/1" value="10k"/>
 <part name="R4" library="SparkFun-Resistors" deviceset="2.2KOHM" device="-0603-1/10W-1%" value="2.2k"/>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
@@ -12063,6 +12063,7 @@ Source:  Data sheet</description>
 <wire x1="88.9" y1="66.04" x2="88.9" y2="116.84" width="0.1524" layer="91"/>
 <pinref part="U2" gate="U$1" pin="PD0(RXD)"/>
 <wire x1="88.9" y1="116.84" x2="68.58" y2="116.84" width="0.1524" layer="91"/>
+<label x="73.66" y="116.84" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="UC-SER" gate="G$1" pin="1"/>
@@ -12079,6 +12080,7 @@ Source:  Data sheet</description>
 <wire x1="93.98" y1="60.96" x2="93.98" y2="114.3" width="0.1524" layer="91"/>
 <pinref part="U2" gate="U$1" pin="PD1(TXD)"/>
 <wire x1="93.98" y1="114.3" x2="68.58" y2="114.3" width="0.1524" layer="91"/>
+<label x="73.66" y="114.3" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="UC-SER" gate="G$1" pin="2"/>
@@ -12258,6 +12260,19 @@ Source:  Data sheet</description>
 </nets>
 </sheet>
 </sheets>
+<errors>
+<approved hash="202,1,-124.46,111.76,U1,T2IN,,,,"/>
+<approved hash="202,1,-88.9,106.68,U1,R2IN,,,,"/>
+<approved hash="104,1,142.24,116.84,U3,VDD1,+5V,,,"/>
+<approved hash="104,1,142.24,114.3,U3,VDD2,3.3V,,,"/>
+<approved hash="113,1,-267.377,144.848,SPK-SW,,,,,"/>
+<approved hash="113,1,-201.337,90.2648,ICSP,,,,,"/>
+<approved hash="113,1,-278.723,93.9123,UC-SER,,,,,"/>
+<approved hash="113,1,-278.723,68.5123,UC-DBG,,,,,"/>
+<approved hash="113,1,-278.723,81.2123,UC-SS,,,,,"/>
+<approved hash="113,1,-203.877,144.848,EXT-GND,,,,,"/>
+<approved hash="113,1,-203.877,129.608,EXP-GND,,,,,"/>
+</errors>
 </schematic>
 </drawing>
 <compatibility>
