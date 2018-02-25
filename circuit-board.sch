@@ -7,7 +7,7 @@
 <setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="no" active="no"/>
@@ -1016,6 +1016,27 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </device>
 </devices>
 </deviceset>
+<deviceset name="0OHM" prefix="R">
+<description>&lt;h3&gt;0Ω resistor&lt;/h3&gt;
+&lt;p&gt;A resistor is a passive two-terminal electrical component that implements electrical resistance as a circuit element. Resistors act to reduce current flow, and, at the same time, act to lower voltage levels within circuits. - Wikipedia&lt;/p&gt;</description>
+<gates>
+<gate name="G$1" symbol="RESISTOR" x="0" y="0"/>
+</gates>
+<devices>
+<device name="-0603-1/10W-5%" package="0603">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="PROD_ID" value="RES-08609"/>
+<attribute name="VALUE" value="0"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
 </devicesets>
 </library>
 <library name="SparkFun-IC-Comms">
@@ -1453,7 +1474,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </deviceset>
 </devicesets>
 </library>
-<library name="adafruit">
+<library name="adafruit" urn="urn:adsk.eagle:library:420">
 <packages>
 <package name="CT3216">
 <description>&lt;b&gt;CAPACITOR&lt;/b&gt;&lt;p&gt;
@@ -11407,8 +11428,8 @@ Source:  Data sheet</description>
 <part name="SUPPLY2" library="SparkFun-PowerSymbols" deviceset="12V" device=""/>
 <part name="P+2" library="SparkFun" deviceset="3.3V" device=""/>
 <part name="GND1" library="supply1" deviceset="GNDA" device=""/>
-<part name="C1" library="adafruit" deviceset="CPOL-US" device="E2.5-5" value="10uF"/>
-<part name="C2" library="adafruit" deviceset="CPOL-US" device="E2.5-5" value="0.1uF"/>
+<part name="C1" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="CPOL-US" device="E2.5-5" value="10uF"/>
+<part name="C2" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="CPOL-US" device="E2.5-5" value="0.1uF"/>
 <part name="SPK-SW" library="SparkFun-Connectors" deviceset="CONN_02" device=""/>
 <part name="RADIO" library="Rembrandt Electronics - JST XH Connectors v1-0" deviceset="JST-XH-07-PIN" device="-LONG-PAD"/>
 <part name="GPS" library="Rembrandt Electronics - JST XH Connectors v1-0" deviceset="JST-XH-05-PIN" device="-LONG-PAD"/>
@@ -11449,8 +11470,8 @@ Source:  Data sheet</description>
 <part name="C13" library="SparkFun-Capacitors" deviceset="27PF" device="-0603-50V-5%" value="27pF"/>
 <part name="EXT-GND" library="SparkFun-Connectors" deviceset="CONN_02" device=""/>
 <part name="Q1" library="transistor-npn" library_urn="urn:adsk.eagle:library:398" deviceset="BC547*" device="" package3d_urn="urn:adsk.eagle:package:28974/2" technology="B"/>
-<part name="C9" library="adafruit" deviceset="CPOL-US" device="E2.5-5" value="10uF"/>
-<part name="C5" library="adafruit" deviceset="CPOL-US" device="E2.5-5" value="10uF"/>
+<part name="C9" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="CPOL-US" device="E2.5-5" value="10uF"/>
+<part name="C5" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="CPOL-US" device="E2.5-5" value="10uF"/>
 <part name="P+3" library="SparkFun" deviceset="3.3V" device=""/>
 <part name="R3" library="SparkFun-Resistors" deviceset="2.0KOHM" device="-0603-1/10W-5%" value="2.0k"/>
 <part name="R2" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-TRIMM" device="T93YA" package3d_urn="urn:adsk.eagle:package:26051/1"/>
@@ -11474,6 +11495,7 @@ Source:  Data sheet</description>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
 <part name="V1" library="supply4" deviceset="+5V" device=""/>
+<part name="R6" library="SparkFun-Resistors" deviceset="0OHM" device="-0603-1/10W-5%" value="0"/>
 </parts>
 <sheets>
 <sheet>
@@ -11571,6 +11593,7 @@ Source:  Data sheet</description>
 <instance part="GND10" gate="1" x="-177.8" y="142.24" rot="R90"/>
 <instance part="GND11" gate="1" x="-177.8" y="127" rot="R90"/>
 <instance part="V1" gate="1" x="-287.02" y="129.54"/>
+<instance part="R6" gate="G$1" x="45.72" y="220.98"/>
 </instances>
 <busses>
 </busses>
@@ -11758,6 +11781,11 @@ Source:  Data sheet</description>
 <wire x1="-200.66" y1="241.3" x2="-218.44" y2="241.3" width="0.1524" layer="91"/>
 <label x="-218.44" y="241.3" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="R6" gate="G$1" pin="1"/>
+<wire x1="40.64" y1="220.98" x2="20.32" y2="220.98" width="0.1524" layer="91"/>
+<label x="20.32" y="220.98" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="HANDSET-PTT" class="0">
 <segment>
@@ -11877,6 +11905,11 @@ Source:  Data sheet</description>
 <pinref part="RADIO" gate="-5" pin="S"/>
 <wire x1="-200.66" y1="210.82" x2="-220.98" y2="210.82" width="0.1524" layer="91"/>
 <label x="-220.98" y="210.82" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="R6" gate="G$1" pin="2"/>
+<wire x1="50.8" y1="220.98" x2="73.66" y2="220.98" width="0.1524" layer="91"/>
+<label x="53.34" y="220.98" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RADIO-SPK-SEL" class="0">
