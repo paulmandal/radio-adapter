@@ -2097,7 +2097,7 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <param name="Efforts" value="2"/>
 <param name="TopRouterVariant" value="1"/>
 <param name="tpViaShape" value="round"/>
-<param name="PrefDir.1" value="a"/>
+<param name="PrefDir.1" value="|"/>
 <param name="PrefDir.2" value="0"/>
 <param name="PrefDir.3" value="0"/>
 <param name="PrefDir.4" value="0"/>
@@ -2112,7 +2112,7 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <param name="PrefDir.13" value="0"/>
 <param name="PrefDir.14" value="0"/>
 <param name="PrefDir.15" value="0"/>
-<param name="PrefDir.16" value="a"/>
+<param name="PrefDir.16" value="-"/>
 <param name="cfVia" value="8"/>
 <param name="cfNonPref" value="5"/>
 <param name="cfChangeDir" value="2"/>
@@ -2247,9 +2247,9 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <attribute name="PROD_ID" value="CAP-08604" x="2.54" y="43.815" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="VALUE" x="2.54" y="44.577" size="0.6096" layer="21" font="vector" ratio="20" rot="R180" align="top-center"/>
 </element>
-<element name="C9" library="adafruit" library_urn="urn:adsk.eagle:library:420" package="E2,5-5" value="10uF" x="31.115" y="37.465" smashed="yes" rot="R270">
-<attribute name="NAME" x="32.385" y="35.052" size="0.6096" layer="21" ratio="10" rot="R270"/>
-<attribute name="VALUE" x="33.782" y="38.227" size="0.6096" layer="21" ratio="10" rot="R270"/>
+<element name="C9" library="adafruit" library_urn="urn:adsk.eagle:library:420" package="E2,5-5" value="10uF" x="31.115" y="40.005" smashed="yes" rot="R270">
+<attribute name="NAME" x="32.385" y="37.592" size="0.6096" layer="21" ratio="10" rot="R270"/>
+<attribute name="VALUE" x="33.782" y="40.767" size="0.6096" layer="21" ratio="10" rot="R270"/>
 </element>
 <element name="EXP-GND" library="SparkFun-Connectors" package="1X02" value="" x="35.56" y="69.215" smashed="yes" rot="R90">
 <attribute name="NAME" x="34.163" y="67.945" size="0.6096" layer="21" font="vector" ratio="20" rot="R90"/>
@@ -2282,10 +2282,10 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <attribute name="NAME" x="36.64" y="42.68" size="0.6096" layer="27" rot="R180"/>
 <attribute name="VALUE" x="36.63" y="46.165" size="0.6096" layer="27" rot="R270"/>
 </element>
-<element name="R3" library="SparkFun-Resistors" package="0603" value="2.0k" x="32.385" y="41.275" smashed="yes">
-<attribute name="NAME" x="32.385" y="42.037" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center"/>
-<attribute name="PROD_ID" value="RES-08296" x="32.385" y="41.275" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="32.385" y="40.513" size="0.6096" layer="21" font="vector" ratio="20" align="top-center"/>
+<element name="R3" library="SparkFun-Resistors" package="0603" value="2.0k" x="35.56" y="35.56" smashed="yes">
+<attribute name="NAME" x="35.56" y="36.322" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center"/>
+<attribute name="PROD_ID" value="RES-08296" x="35.56" y="35.56" size="1.778" layer="27" display="off"/>
+<attribute name="VALUE" x="35.56" y="34.798" size="0.6096" layer="21" font="vector" ratio="20" align="top-center"/>
 </element>
 <element name="R4" library="SparkFun-Resistors" package="0603" value="2.2k" x="39.37" y="59.69" smashed="yes" rot="R270">
 <attribute name="NAME" x="40.132" y="59.69" size="0.6096" layer="25" font="vector" ratio="20" rot="R270" align="bottom-center"/>
@@ -2420,10 +2420,14 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <contactref element="C14" pad="1"/>
 <contactref element="U3" pad="8"/>
 <contactref element="R3" pad="2"/>
-<wire x1="38.735" y1="35.345" x2="33.235" y2="41.275" width="0" layer="19" extent="1-1"/>
-<wire x1="38.735" y1="30.48" x2="38.735" y2="35.345" width="0" layer="19" extent="1-1"/>
-<wire x1="22.7838" y1="45.72" x2="33.235" y2="41.275" width="0" layer="19" extent="1-1"/>
-<wire x1="23.28" y1="46.99" x2="22.7838" y2="45.72" width="0" layer="19" extent="1-1"/>
+<wire x1="38.735" y1="30.48" x2="38.735" y2="35.345" width="0.1524" layer="1"/>
+<wire x1="38.735" y1="35.345" x2="36.41" y2="35.56" width="0.1524" layer="1"/>
+<wire x1="36.41" y1="35.56" x2="36.195" y2="43.815" width="0.1524" layer="1"/>
+<wire x1="36.195" y1="43.815" x2="26.035" y2="43.815" width="0.1524" layer="1"/>
+<wire x1="23.28" y1="46.99" x2="22.793890625" y2="45.745828125" width="0.1524" layer="1"/>
+<wire x1="22.793890625" y1="45.745828125" x2="22.7838" y2="45.72" width="0.1524" layer="1"/>
+<wire x1="26.035" y1="43.815" x2="26.035" y2="45.085" width="0.1524" layer="1"/>
+<wire x1="26.035" y1="45.085" x2="22.793890625" y2="45.745828125" width="0.1524" layer="1"/>
 </signal>
 <signal name="GNDA">
 <contactref element="C6" pad="2"/>
@@ -2497,16 +2501,18 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <contactref element="R6" pad="1"/>
 <wire x1="28.575" y1="76.2" x2="31.115" y2="71.12" width="0.1524" layer="16"/>
 <wire x1="31.115" y1="71.12" x2="31.115" y2="66.675" width="0.1524" layer="16"/>
-<wire x1="31.115" y1="66.675" x2="36.195" y2="60.325" width="0.1524" layer="16"/>
-<wire x1="36.195" y1="60.325" x2="36.195" y2="60.54" width="0" layer="19" extent="1-16"/>
+<wire x1="31.115" y1="66.675" x2="35.56" y2="62.23" width="0.1524" layer="16"/>
+<via x="35.56" y="62.23" extent="1-16" drill="0.35"/>
+<wire x1="35.56" y1="62.23" x2="36.195" y2="60.54" width="0.1524" layer="1"/>
 </signal>
 <signal name="HANDSET-PTT">
 <contactref element="HANDSET" pad="3"/>
 <contactref element="R4" pad="1"/>
 <wire x1="31.115" y1="76.2" x2="33.655" y2="71.755" width="0.1524" layer="16"/>
-<wire x1="33.655" y1="71.755" x2="33.655" y2="67.31" width="0.1524" layer="16"/>
-<wire x1="33.655" y1="67.31" x2="39.37" y2="60.325" width="0.1524" layer="16"/>
-<wire x1="39.37" y1="60.325" x2="39.37" y2="60.54" width="0" layer="19" extent="1-16"/>
+<wire x1="33.655" y1="67.31" x2="33.655" y2="71.755" width="0.1524" layer="16"/>
+<wire x1="39.37" y1="60.54" x2="38.735" y2="62.23" width="0.1524" layer="1"/>
+<via x="38.735" y="62.23" extent="1-16" drill="0.35"/>
+<wire x1="38.735" y1="62.23" x2="33.655" y2="67.31" width="0.1524" layer="16"/>
 </signal>
 <signal name="HANDSET-MIC">
 <contactref element="HANDSET" pad="4"/>
@@ -2527,8 +2533,8 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <contactref element="RADIO" pad="4"/>
 <contactref element="C9" pad="-"/>
 <contactref element="R4" pad="2"/>
-<wire x1="31.115" y1="36.195" x2="39.37" y2="58.84" width="0" layer="19" extent="1-1"/>
-<wire x1="31.115" y1="30.48" x2="31.115" y2="36.195" width="0" layer="19" extent="1-1"/>
+<wire x1="31.115" y1="30.48" x2="31.115" y2="38.735" width="0.1524" layer="16"/>
+<wire x1="31.115" y1="38.735" x2="39.37" y2="58.84" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="GPS-TX">
 <contactref element="GPS" pad="3"/>
@@ -2679,9 +2685,10 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <contactref element="Q1" pad="3"/>
 <contactref element="R2" pad="2"/>
 <contactref element="C9" pad="+"/>
+<wire x1="34.71" y1="35.56" x2="31.115" y2="41.275" width="0.1524" layer="1"/>
+<wire x1="31.75" y1="45.72" x2="31.75" y2="42.545" width="0.1524" layer="16"/>
+<wire x1="31.75" y1="42.545" x2="31.115" y2="41.275" width="0.1524" layer="16"/>
 <wire x1="31.75" y1="45.72" x2="32.385" y2="50.165" width="0" layer="19" extent="1-1"/>
-<wire x1="31.535" y1="41.275" x2="31.75" y2="45.72" width="0" layer="19" extent="1-1"/>
-<wire x1="31.115" y1="38.735" x2="31.535" y2="41.275" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$4">
 <contactref element="Q1" pad="2"/>
