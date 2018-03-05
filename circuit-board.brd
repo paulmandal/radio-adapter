@@ -2366,7 +2366,7 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 </element>
 <element name="IC1" library="linear" library_urn="urn:adsk.eagle:library:262" package="SOT223" package3d_urn="urn:adsk.eagle:package:16418/2" value="UA78M05DCY" x="5.715" y="68.58" smashed="yes" rot="R270">
 <attribute name="NAME" x="5.7658" y="71.12" size="0.6096" layer="25" rot="R270"/>
-<attribute name="VALUE" x="4.3942" y="71.12" size="0.6096" layer="27" rot="R270"/>
+<attribute name="VALUE" x="4.3942" y="71.12" size="0.6096" layer="21" rot="R270"/>
 </element>
 </elements>
 <signals>
@@ -2382,6 +2382,9 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <vertex x="41.275" y="80.01"/>
 <vertex x="41.275" y="27.94"/>
 <vertex x="23.495" y="27.94"/>
+<vertex x="22.225" y="27.94"/>
+<vertex x="22.225" y="33.02"/>
+<vertex x="23.495" y="34.29"/>
 <vertex x="23.495" y="48.26"/>
 <vertex x="30.48" y="48.26"/>
 <vertex x="30.48" y="71.12"/>
@@ -2392,7 +2395,9 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <polygon width="0.1524" layer="1">
 <vertex x="41.275" y="80.01"/>
 <vertex x="41.275" y="27.94"/>
-<vertex x="23.495" y="27.94"/>
+<vertex x="22.225" y="27.94"/>
+<vertex x="22.225" y="33.02"/>
+<vertex x="23.495" y="34.29"/>
 <vertex x="23.495" y="48.26"/>
 <vertex x="30.48" y="48.26"/>
 <vertex x="30.48" y="71.12"/>
