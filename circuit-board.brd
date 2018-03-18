@@ -2381,7 +2381,6 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <polygon width="0.1524" layer="16">
 <vertex x="41.275" y="80.01"/>
 <vertex x="41.275" y="27.94"/>
-<vertex x="23.495" y="27.94"/>
 <vertex x="22.225" y="27.94"/>
 <vertex x="22.225" y="33.02"/>
 <vertex x="23.495" y="34.29"/>

@@ -26,38 +26,18 @@ char readByte;
 boolean first;
 
 SoftwareSerial radioSerial(9, 8);
+SoftwareSerial debugSerial(7, 6);
 
 void setup() {
-  Serial.begin(9600);
-  Serial1.begin(4800);
+  Serial.begin(4800);
   radioSerial.begin(9600);  
+  debugSerial.begin(9600);
+  debugSerial.println("Debug Serial Output - Application started.");
 }
 
 
 void loop() {
-  while(Serial1.available() > 0) {
-    readByte = Serial1.read();    
-    if(readByte == '$') {
-      // New message is beginning
-      bufferPos = 0;
-    }    
-    msgBuffer[bufferPos] = readByte;
-    bufferPos++;
-    if(readByte == '\n') {
-      // Message is finished, process
-      handleMessage();
-      bufferPos = 0;
-    } else if(bufferPos >= MSG_BUFFER_SIZE) {
-      bufferPos = 0;
-    }
-  }
-  while(Serial.available() > 0) { // TODO: remove debugging code
-//    if(!first) {
-//      first = true;
-//      Serial.write("echo: ");
-//    }
-//    readByte = Serial.read();
-//    Serial.write(readByte);
+  while(Serial.available() > 0) {
     readByte = Serial.read();    
     if(readByte == '$') {
       // New message is beginning
@@ -77,10 +57,8 @@ void loop() {
 }
 
 void handleMessage() {
-  // TODO: remove debugging code
-  for(int i = 0 ; i < bufferPos ; i++) {
-    Serial.write(msgBuffer[i]);
-  }
+  debugSerial.print("GPS->uC: ");
+  debugSerial.println(msgBuffer);
   // Determine the message type
   if(strncmp(msgBuffer, "$GPGGA", 6) == 0) {
     translateGga();
@@ -125,8 +103,7 @@ void translateGga() {
   }
   outputMsg += "0000";
   outputMsg += gpsMsg;
-  Serial.print(outputMsg);
-  radioSerial.print(outputMsg);
+  sendToRadio(outputMsg);
 }
 
 void translateGgl() {
@@ -136,11 +113,17 @@ void translateGgl() {
 void translateRmc() {
   String gpsMsg = String(msgBuffer);
   String outputMsg = gpsMsg.substring(0, 13);
-  Serial.println(outputMsg);  
+//  Serial.println(outputMsg);  
 }
 
 void translateVtg() {
     // Does nothing
+}
+
+void sendToRadio(String outputMsg) {
+  radioSerial.print(outputMsg);
+  debugSerial.print("uC->RADIO: ");
+  debugSerial.println(outputMsg);
 }
 
 String padNumber(String input, int count) {  
