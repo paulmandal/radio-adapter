@@ -19,11 +19,14 @@
 
 const int MSG_BUFFER_SIZE = 256;
 
-char msgBuffer[MSG_BUFFER_SIZE];
+char *msgBuffer;
 char bufferPos = 0;
 
+char *debugMsgBuffer;
+char debugBufferPos = 0;
+
 char readByte;
-boolean first;
+boolean xferMessages = true;
 
 SoftwareSerial radioSerial(9, 8);
 SoftwareSerial debugSerial(7, 6);
@@ -33,6 +36,8 @@ void setup() {
   radioSerial.begin(9600);  
   debugSerial.begin(9600);
   debugSerial.println("Debug Serial Output - Application started.");
+  msgBuffer = (char*)calloc(MSG_BUFFER_SIZE, sizeof(char));
+  debugMsgBuffer = (char*)calloc(MSG_BUFFER_SIZE, sizeof(char));
 }
 
 
@@ -47,36 +52,64 @@ void loop() {
     bufferPos++;
     if(readByte == '\n') {
       // Message is finished, process
-      handleMessage();
+      handleMessage(msgBuffer);
       bufferPos = 0;
     } else if(bufferPos >= MSG_BUFFER_SIZE) {
       bufferPos = 0;
     }
   }
-  first = false;
-}
-
-void handleMessage() {
-  debugSerial.print("GPS->uC: ");
-  debugSerial.println(msgBuffer);
-  // Determine the message type
-  if(strncmp(msgBuffer, "$GPGGA", 6) == 0) {
-    translateGga();
-  } else if(strncmp(msgBuffer, "$GPGGL", 6) == 0) {
-    translateGgl();
-  } else if(strncmp(msgBuffer, "$GPRMC", 6) == 0) {
-    translateRmc();
-  } else if(strncmp(msgBuffer, "$GPVTG", 6) == 0) {
-    translateVtg();
+  while(debugSerial.available() > 0) {    
+    readByte = debugSerial.read();
+    if(readByte == '$') {
+      debugBufferPos = 0;
+    }
+    debugMsgBuffer[debugBufferPos] = readByte;
+    debugBufferPos++;
+    if(readByte == '\n') {
+      handleMessage(debugMsgBuffer);
+      debugBufferPos = 0;
+    } else if(debugBufferPos >= MSG_BUFFER_SIZE) {
+      debugBufferPos = 0;
+    }
   }
 }
 
-void translateGga() {
+void handleMessage(char *message) {
+  debugSerial.print("GPS->uC: ");
+  debugSerial.write(message, bufferPos);
+  debugSerial.println();
+  // Determine the message type
+  String outputMsg;
+  boolean sendMsgToRadio = false;
+  if(strncmp(message, "$GPGGA", 6) == 0) {
+    outputMsg = translateGga(message);
+    sendMsgToRadio = true;
+  } else if(strncmp(message, "$GPGGL", 6) == 0) {
+    outputMsg = translateGgl(message);
+    //sendMsgToRadio = true;
+  } else if(strncmp(message, "$GPRMC", 6) == 0) {
+    outputMsg = translateRmc(message);
+    //sendMsgToRadio = true;
+  } else if(strncmp(message, "$GPVTG", 6) == 0) {
+    outputMsg = translateVtg(message);
+    //sendMsgToRadio = true;
+  } else if(strncmp(message, "$XFER", 5) == 0) {
+    // handle cmd
+    xferMessages = !xferMessages;
+    debugSerial.print("xferMessages: ");
+    debugSerial.println(xferMessages); 
+  }
+  if(sendMsgToRadio && xferMessages) {
+    sendToRadio(outputMsg);
+  }
+}
+
+String translateGga(char *message) {
   // Check if we have a fix before attempting to translate msg
-  if(msgBuffer[7] == ',') {
+  if(message[7] == ',') {
     return;
   }
-  String gpsMsg = String(msgBuffer);  
+  String gpsMsg = String(message);  
   String outputMsg;
   String tmp;
   int paddingIndexes[] = {7, 8, 9, 11, 14};
@@ -103,25 +136,30 @@ void translateGga() {
   }
   outputMsg += "0000";
   outputMsg += gpsMsg;
-  sendToRadio(outputMsg);
+  return outputMsg;
 }
 
-void translateGgl() {
+String translateGgl(char *message) {
     // Does nothing -- need to figure out message syntax
+    String outputMsg = "";
+    return outputMsg;
 }
 
-void translateRmc() {
-  String gpsMsg = String(msgBuffer);
+String translateRmc(char *message) {
+  String gpsMsg = String(message);
   String outputMsg = gpsMsg.substring(0, 13);
+  return outputMsg;
 //  Serial.println(outputMsg);  
 }
 
-void translateVtg() {
+String translateVtg(char *message) {
     // Does nothing
+    String outputMsg = "";
+    return outputMsg;
 }
 
 void sendToRadio(String outputMsg) {
-  radioSerial.print(outputMsg);
+  radioSerial.println(outputMsg);
   debugSerial.print("uC->RADIO: ");
   debugSerial.println(outputMsg);
 }
