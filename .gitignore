@@ -1,0 +1,8 @@
+venv
+*.xls#
+*.s#*
+*.b#*
+.idea
+*.pro
+*.job
+
