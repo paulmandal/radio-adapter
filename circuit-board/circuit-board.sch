@@ -12355,7 +12355,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 </class>
 </classes>
 <parts>
-<part name="12V-IN-GPS" library="Rembrandt Electronics - JST XH Connectors v1-0" deviceset="JST-XH-02-PIN" device="-LONG-PAD"/>
+<part name="12V-IN" library="Rembrandt Electronics - JST XH Connectors v1-0" deviceset="JST-XH-02-PIN" device="-LONG-PAD"/>
 <part name="HANDSET" library="Rembrandt Electronics - JST XH Connectors v1-0" deviceset="JST-XH-06-PIN" device="-LONG-PAD"/>
 <part name="SUPPLY2" library="SparkFun-PowerSymbols" deviceset="12V" device=""/>
 <part name="P+2" library="SparkFun" deviceset="3.3V" device=""/>
@@ -12451,8 +12451,8 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <plain>
 </plain>
 <instances>
-<instance part="12V-IN-GPS" gate="-2" x="-261.62" y="241.3"/>
-<instance part="12V-IN-GPS" gate="-1" x="-261.62" y="243.84"/>
+<instance part="12V-IN" gate="-2" x="-261.62" y="241.3"/>
+<instance part="12V-IN" gate="-1" x="-261.62" y="243.84"/>
 <instance part="HANDSET" gate="-1" x="-198.12" y="243.84"/>
 <instance part="HANDSET" gate="-2" x="-198.12" y="241.3"/>
 <instance part="HANDSET" gate="-3" x="-198.12" y="238.76"/>
@@ -12717,7 +12717,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <junction x="-289.56" y="218.44"/>
 </segment>
 <segment>
-<pinref part="12V-IN-GPS" gate="-1" pin="S"/>
+<pinref part="12V-IN" gate="-1" pin="S"/>
 <wire x1="-264.16" y1="243.84" x2="-269.24" y2="243.84" width="0.1524" layer="91"/>
 <pinref part="GND5" gate="1" pin="GNDA"/>
 </segment>
@@ -12789,7 +12789,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <net name="12V" class="0">
 <segment>
 <pinref part="SUPPLY2" gate="G$1" pin="12V"/>
-<pinref part="12V-IN-GPS" gate="-2" pin="S"/>
+<pinref part="12V-IN" gate="-2" pin="S"/>
 <wire x1="-269.24" y1="241.3" x2="-264.16" y2="241.3" width="0.1524" layer="91"/>
 </segment>
 <segment>
