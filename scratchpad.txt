@@ -9,5 +9,4 @@ V2 features:
 
 - amplified speaker output
 - handset/radio electrical isolation
-- 3-board design: GPS, radio interface, handset interface, should be easier to debug and source waterproof housings
 - minimized board size
