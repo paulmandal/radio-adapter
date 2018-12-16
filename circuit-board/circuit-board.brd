@@ -174,7 +174,7 @@
 <wire x1="50.8" y1="45.72" x2="50.8" y2="0" width="0.1524" layer="20"/>
 <wire x1="50.8" y1="45.72" x2="0" y2="45.72" width="0.1524" layer="20"/>
 <wire x1="0" y1="0" x2="0" y2="45.72" width="0.1524" layer="20"/>
-<text x="0.508" y="22.352" size="0.6096" layer="22" rot="MR90">Garmin + VX-8DR + Handset/Mic Adapter
+<text x="6.858" y="24.892" size="0.6096" layer="22" rot="MR90">Garmin + VX-8DR + Handset/Mic Adapter
 github.com/paulmandal/radio-adapter
 v2.0</text>
 <text x="12.573" y="40.005" size="0.6096" layer="22" rot="MR270">GND</text>

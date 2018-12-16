@@ -20,4 +20,6 @@ Adapter board to connect a Yaesu VX-8DR with a Garmin GPSmap64 and various .mil 
 This project borrows heavily from these sources:
 
 [Reverse Engineering the Yaesu VX-8DR GPS Interface](http://lingnik.com/2013/02/09/reverse-engineering-yaesu-vx-8dr-gps-interface.html)
+
 [Dynamic microphone to electret microphone input](http://www.epanorama.net/circuits/dynamic_to_electretinput.html)
+
