@@ -84,25 +84,20 @@ void handleMessage(char *message) {
   String outputMsg;
   boolean sendMsgToRadio = false;
   if(strncmp(message, "$GPGGA", 6) == 0) {
-    //outputMsg = translateGga(message);
     outputMsg = ggaTransform.transform(message);
-    sendMsgToRadio = true;
   } else if(strncmp(message, "$GPGLL", 6) == 0) {
     outputMsg = translateGgl(message);
-    //sendMsgToRadio = true;
   } else if(strncmp(message, "$GPRMC", 6) == 0) {
     outputMsg = translateRmc(message);
-    //sendMsgToRadio = true;
   } else if(strncmp(message, "$GPVTG", 6) == 0) {
     outputMsg = translateVtg(message);
-    //sendMsgToRadio = true;
   } else if(strncmp(message, "$XFER", 5) == 0) {
     // handle cmd
     xferMessages = !xferMessages;
     debugSerial.print("xferMessages: ");
     debugSerial.println(xferMessages); 
   }
-  if(sendMsgToRadio && xferMessages) {
+  if(outputMsg.length() > 0 && xferMessages) {
     sendToRadio(outputMsg);
   }
 }

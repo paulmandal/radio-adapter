@@ -33,6 +33,14 @@ StaticField ggaStaticInfo[] =
 
 String ggaMessageEnd = "0000";
 
-extern MessageTransform ggaTransform(ggaPaddingInfo, ggaPrefixInfo, ggaSuffixInfo, ggaStaticInfo, ggaMessageEnd);
+extern MessageTransform ggaTransform(ggaPaddingInfo,
+                                     (sizeof(ggaPaddingInfo) / sizeof(PaddingInfo)),
+                                     ggaPrefixInfo,
+                                     (sizeof(ggaPrefixInfo) / sizeof(StaticAddition)),
+                                     ggaSuffixInfo,
+                                     (sizeof(ggaSuffixInfo) / sizeof(StaticAddition)),
+                                     ggaStaticInfo,
+                                     (sizeof(ggaStaticInfo) / sizeof(StaticField)),
+                                     ggaMessageEnd);
 
 #endif
