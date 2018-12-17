@@ -12,12 +12,11 @@ if len(sys.argv) < 4:
     sys.exit(1)
 
 INPUT_FILE = sys.argv[1]
-INPUT_SERIAL = sys.argv[2]
-GPS_SERIAL = sys.argv[3]
-RADIO_SERIAL = sys.argv[4]
+GPS_SERIAL = sys.argv[2]
+RADIO_SERIAL = sys.argv[3]
 
 gps_port = serial.Serial(GPS_SERIAL, 4800)
-radio_port = serial.Serial(RADIO_SERIAL, 9600)
+radio_port = serial.Serial(RADIO_SERIAL, 9600, timeout=1)
 
 
 def signal_handler(signal, frame):
@@ -34,9 +33,15 @@ with open(INPUT_FILE, 'r') as f:
     input_lines = f.readlines()
 
 for line in input_lines:
-    gps_port.write(line)
+    line = line.rstrip()
+    gps_port.write('{line}\n'.format(line=line).encode())
     print('wrote: {line}'.format(line=line))
 
-    response = radio_port.readline()
-    print(' read: {response}'.format(response=response))
+    while True:
+        response = radio_port.readline()
+        response = response.decode()
+        if len(response) > 0:
+            print(' read: {response}'.format(response=response))
+        else:
+            break
     print('')
