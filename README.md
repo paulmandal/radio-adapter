@@ -10,10 +10,11 @@ Adapter board to connect a Yaesu VX-8DR with a Garmin GPSmap64 and various .mil 
 
 # Table of Contents
 
-| Directory | Contents |
+| File/Directory | Contents |
 |---|----|
-| vx8dr-basic | Quick & dirty Arduino sketch to translate Garmin GPS NMEA sentences into the fixed-length that the Yaesu VX-8DR expects |
+| ucontroller-code | Arduino sketch to translate Garmin GPS NMEA sentences into the fixed-length that the Yaesu VX-8DR expects |
 | circuit-board | Eagle circuit diagrams and PCB layouts for the adapter board |
+| dev-tools | Various Python scripts that were useful during development |
 
 # References
 
