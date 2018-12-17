@@ -8,20 +8,24 @@
 /**
  * Left-hand pads a number with zeros to reach a desired length
  */
-String leftPadNumber(String input, int targetLength) {  
-  String tmp = "";
+char *leftPadNumber(char *input, int targetLength) {
+  int inputLength = strlen(input);
+  int offset = 0;
+  char *output = (char*)calloc(targetLength + 1, sizeof(char));
   boolean negative = false;
-  if(input.charAt(0) == '-') {
-    tmp += '-';
+  if(input[0] == '-') {
+    output[0] = '-';
+    offset = 1;
     negative = true;
   }
-  for(int i = input.length() ; i < targetLength ; i++) {
-    tmp += '0';
+  int paddingSize = targetLength - inputLength;
+  for(int i = 0 ; i < paddingSize ; i++) {
+    output[i + offset] = '0';
   }
   if(negative) {
-    tmp += input.substring(1);
+    strcat(output, input + 1);
   } else {
-    tmp += input;
+    strcat(output, input);
   }
-  return tmp;
+  return output;
 }

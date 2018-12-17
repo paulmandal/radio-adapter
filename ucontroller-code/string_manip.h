@@ -6,6 +6,6 @@
 
 #include "Arduino.h"
 
-String leftPadNumber(String input, int count);
+char *leftPadNumber(char *input, int targetLength);
 
 #endif
