@@ -17,13 +17,12 @@
 #include <NeoSWSerial.h>
 #include <NeoHWSerial.h>
 
+#include "message_buffer.h"
+
 const int MSG_BUFFER_SIZE = 256;
 
-char *msgBuffer;
-char bufferPos = 0;
-
-char *debugMsgBuffer;
-char debugBufferPos = 0;
+MessageBuffer msgBuffer(MSG_BUFFER_SIZE);
+MessageBuffer debugMsgBuffer(MSG_BUFFER_SIZE);
 
 char readByte;
 boolean xferMessages = true;
@@ -36,47 +35,38 @@ void setup() {
   radioSerial.begin(9600);  
   debugSerial.begin(9600);
   debugSerial.println("Debug Serial Output - Application started.");
-  msgBuffer = (char*)calloc(MSG_BUFFER_SIZE, sizeof(char));
-  debugMsgBuffer = (char*)calloc(MSG_BUFFER_SIZE, sizeof(char));
 }
-
 
 void loop() {
   while(NeoSerial.available() > 0) {
     readByte = NeoSerial.read();
     if(readByte == '$') {
       // New message is beginning
-      bufferPos = 0;
-    }    
-    msgBuffer[bufferPos] = readByte;
-    bufferPos++;
+      msgBuffer.clear();
+    }
+    msgBuffer.write(readByte);
     if(readByte == '\n') {
       // Message is finished, process
-      handleMessage(msgBuffer);
-      bufferPos = 0;
-    } else if(bufferPos >= MSG_BUFFER_SIZE) {
-      bufferPos = 0;
+      handleMessage(msgBuffer.getMessage());
+      msgBuffer.clear();
     }
   }
-  while(debugSerial.available() > 0) {    
+  while(debugSerial.available() > 0) {
     readByte = debugSerial.read();
     if(readByte == '$') {
-      debugBufferPos = 0;
+      debugMsgBuffer.clear();
     }
-    debugMsgBuffer[debugBufferPos] = readByte;
-    debugBufferPos++;
+    debugMsgBuffer.write(readByte);
     if(readByte == '\n') {
-      handleMessage(debugMsgBuffer);
-      debugBufferPos = 0;
-    } else if(debugBufferPos >= MSG_BUFFER_SIZE) {
-      debugBufferPos = 0;
+      handleMessage(debugMsgBuffer.getMessage());
+      debugMsgBuffer.clear();
     }
   }
 }
 
 void handleMessage(char *message) {
   debugSerial.print("GPS->uC:   ");
-  debugSerial.write(message, bufferPos);
+  debugSerial.print(message);
   // Determine the message type
   String outputMsg;
   boolean sendMsgToRadio = false;
