@@ -15,6 +15,7 @@
 
 
 #include <NeoSWSerial.h>
+#include <NeoHWSerial.h>
 
 const int MSG_BUFFER_SIZE = 256;
 
@@ -31,7 +32,7 @@ NeoSWSerial radioSerial(9, 8);
 NeoSWSerial debugSerial(7, 6);
 
 void setup() {
-  Serial.begin(4800);
+  NeoSerial.begin(4800);
   radioSerial.begin(9600);  
   debugSerial.begin(9600);
   debugSerial.println("Debug Serial Output - Application started.");
@@ -41,8 +42,8 @@ void setup() {
 
 
 void loop() {
-  while(Serial.available() > 0) {
-    readByte = Serial.read();    
+  while(NeoSerial.available() > 0) {
+    readByte = NeoSerial.read();
     if(readByte == '$') {
       // New message is beginning
       bufferPos = 0;
@@ -74,7 +75,7 @@ void loop() {
 }
 
 void handleMessage(char *message) {
-  debugSerial.print("GPS->uC: ");
+  debugSerial.print("GPS->uC:   ");
   debugSerial.write(message, bufferPos);
   // Determine the message type
   String outputMsg;
