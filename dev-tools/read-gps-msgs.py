@@ -32,7 +32,7 @@ unique_msgs = []
 
 while True:
     line = serial_port.readline()
-    line = line.decode()
+    line = line.decode('ascii')
     if len(line) > 6:
         msg_type = line[:6]
         if msg_type not in unique_msgs:
