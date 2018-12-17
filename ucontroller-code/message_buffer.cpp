@@ -27,7 +27,7 @@ void MessageBuffer::write(char c) {
 /**
  * Copy the contents of this MessageBuffer to another MessageBuffer
  */
-void MessageBuffer::copyTo(MessageBuffer dest) {
+void MessageBuffer::copyTo(volatile MessageBuffer &dest) {
   dest.clear();
   for(int i = 0 ; i < _bufferPosition ; i++) {
     dest.write(_msgBuffer[i]);
@@ -47,4 +47,11 @@ void MessageBuffer::clear() {
     _msgBuffer[i] = '\0';
   }
   _bufferPosition = 0;
+}
+
+/**
+ * Returns the MessageBuffers current message length
+ */
+int MessageBuffer::length() {
+  return _bufferPosition;
 }

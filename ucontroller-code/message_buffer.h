@@ -10,9 +10,10 @@ class MessageBuffer {
   public:
     MessageBuffer(int bufferSize);
     void write(char c);
-    void copyTo(MessageBuffer dest);
+    void copyTo(volatile MessageBuffer &dest);
     char *getMessage();
     void clear();
+    int length();
   private:
     int _bufferPosition;
     int _bufferSize;

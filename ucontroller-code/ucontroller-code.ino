@@ -21,47 +21,50 @@
 
 const int MSG_BUFFER_SIZE = 256;
 
-MessageBuffer msgBuffer(MSG_BUFFER_SIZE);
-MessageBuffer debugMsgBuffer(MSG_BUFFER_SIZE);
+volatile MessageBuffer gpsMessageBuffer(MSG_BUFFER_SIZE);
+volatile MessageBuffer debugMessageBuffer(MSG_BUFFER_SIZE);
+volatile MessageBuffer queuedMessage(MSG_BUFFER_SIZE);
 
-char readByte;
 boolean xferMessages = true;
 
 NeoSWSerial radioSerial(9, 8);
 NeoSWSerial debugSerial(7, 6);
 
 void setup() {
+  NeoSerial.attachInterrupt(handleGpsInput);
   NeoSerial.begin(4800);
-  radioSerial.begin(9600);  
+  radioSerial.begin(9600);
+  debugSerial.attachInterrupt(handleDebugInput);
   debugSerial.begin(9600);
   debugSerial.println("Debug Serial Output - Application started.");
 }
 
 void loop() {
-  while(NeoSerial.available() > 0) {
-    readByte = NeoSerial.read();
-    if(readByte == '$') {
+  if(queuedMessage.length() > 0) {
+    handleMessage(queuedMessage.getMessage());
+    queuedMessage.clear();
+  }
+}
+
+void handleGpsInput(char c) {
+  handleSerialInput(c, gpsMessageBuffer);
+}
+
+void handleDebugInput(char c) {
+  handleSerialInput(c, debugMessageBuffer);
+}
+
+void handleSerialInput(char c, volatile MessageBuffer &messageBuffer) {
+    if(c == '$') {
       // New message is beginning
-      msgBuffer.clear();
+      messageBuffer.clear();
     }
-    msgBuffer.write(readByte);
-    if(readByte == '\n') {
-      // Message is finished, process
-      handleMessage(msgBuffer.getMessage());
-      msgBuffer.clear();
-    }
-  }
-  while(debugSerial.available() > 0) {
-    readByte = debugSerial.read();
-    if(readByte == '$') {
-      debugMsgBuffer.clear();
-    }
-    debugMsgBuffer.write(readByte);
-    if(readByte == '\n') {
-      handleMessage(debugMsgBuffer.getMessage());
-      debugMsgBuffer.clear();
-    }
-  }
+    messageBuffer.write(c);
+    if(c == '\n') {
+      // Message is finished, queue for processing
+      messageBuffer.copyTo(queuedMessage);
+      messageBuffer.clear();
+    }  
 }
 
 void handleMessage(char *message) {
