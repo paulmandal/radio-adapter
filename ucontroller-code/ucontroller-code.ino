@@ -1,23 +1,14 @@
-//Garmin and Yaesu support:
-//
-//GGA
-//GGL
-//RMC
-//VTG
-//
-//
-//Yaesu supports but not Garmin:
-//
-//GSA
-//GSV
-//ZDA
-//
-
-
+/**
+ * Transforms GPS NMEA messages from the variable-length format used by Garmin (and probably others) into
+ * the fixed-lenght format used by the Yaesu VX-8DR
+ */
 #include <NeoSWSerial.h>
 #include <NeoHWSerial.h>
 
 #include "message_buffer.h"
+#include "string_manip.h"
+#include "msg_transform.h"
+#include "transform_configs.h"
 
 const int MSG_BUFFER_SIZE = 256;
 
@@ -26,6 +17,8 @@ volatile MessageBuffer debugMessageBuffer(MSG_BUFFER_SIZE);
 volatile MessageBuffer queuedMessage(MSG_BUFFER_SIZE);
 
 boolean xferMessages = true;
+
+extern MessageTransform ggaTransform;
 
 NeoSWSerial radioSerial(9, 8);
 NeoSWSerial debugSerial(7, 6);
@@ -39,6 +32,10 @@ void setup() {
   debugSerial.println("Debug Serial Output - Application started.");
 }
 
+/**
+ * Main loop -- check for any queued message to be processed
+ * TODO: this can be improved by using the microcontroller's sleep functionality and Neo*Serial's interrupt-driven input handling
+ */
 void loop() {
   if(queuedMessage.length() > 0) {
     handleMessage(queuedMessage.getMessage());
@@ -46,14 +43,24 @@ void loop() {
   }
 }
 
+/**
+ * Handle input interrupt on the GPS port
+ */
 void handleGpsInput(char c) {
   handleSerialInput(c, gpsMessageBuffer);
 }
 
+/**
+ * Handle input interrupt on the debug port
+ */
 void handleDebugInput(char c) {
   handleSerialInput(c, debugMessageBuffer);
 }
 
+/**
+ * Handle input interrupt -- write the input to a MessageBuffer, check for start/end of message
+ * If we hit the end of the message queue the message up for handling
+ */
 void handleSerialInput(char c, volatile MessageBuffer &messageBuffer) {
     if(c == '$') {
       // New message is beginning
@@ -67,6 +74,9 @@ void handleSerialInput(char c, volatile MessageBuffer &messageBuffer) {
     }  
 }
 
+/**
+ * Handle a completed message -- determine the message type and apply the appropriate transformation
+ */
 void handleMessage(char *message) {
   debugSerial.print("GPS->uC:   ");
   debugSerial.print(message);
@@ -74,9 +84,10 @@ void handleMessage(char *message) {
   String outputMsg;
   boolean sendMsgToRadio = false;
   if(strncmp(message, "$GPGGA", 6) == 0) {
-    outputMsg = translateGga(message);
+    //outputMsg = translateGga(message);
+    outputMsg = ggaTransform.transform(message);
     sendMsgToRadio = true;
-  } else if(strncmp(message, "$GPGGL", 6) == 0) {
+  } else if(strncmp(message, "$GPGLL", 6) == 0) {
     outputMsg = translateGgl(message);
     //sendMsgToRadio = true;
   } else if(strncmp(message, "$GPRMC", 6) == 0) {
@@ -112,7 +123,7 @@ String translateGga(char *message) {
     tmp = gpsMsg.substring(0, comma);
     for(int i = 0 ; i < (sizeof(paddingIndexes)/sizeof(int)) ; i++) {
       if(count == paddingIndexes[i]) {
-        tmp = padNumber(tmp, paddingSizes[i]);
+        tmp = leftPadNumber(tmp, paddingSizes[i]);
       }
     }
     if(count == 1) {
@@ -150,29 +161,14 @@ String translateVtg(char *message) {
     return outputMsg;
 }
 
+/**
+ * Send a message to the radio and debug serial ports
+ */
 void sendToRadio(String outputMsg) {
   radioSerial.listen();
   radioSerial.print(outputMsg);
   debugSerial.listen();
   debugSerial.print("uC->radio: ");
   debugSerial.print(outputMsg);
-}
-
-String padNumber(String input, int count) {  
-  String tmp = "";
-  boolean negative = false;
-  if(input.charAt(0) == '-') {
-    tmp += '-';
-    negative = true;
-  }
-  for(int i = input.length() ; i < count ; i++) {
-    tmp += '0';
-  }
-  if(negative) {
-    tmp += input.substring(1);
-  } else {
-    tmp += input;
-  }
-  return tmp;
 }
 
