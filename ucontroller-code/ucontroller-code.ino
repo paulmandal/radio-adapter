@@ -14,8 +14,7 @@
 //
 
 
-#include <SoftwareSerial.h>
-
+#include <NeoSWSerial.h>
 
 const int MSG_BUFFER_SIZE = 256;
 
@@ -28,8 +27,8 @@ char debugBufferPos = 0;
 char readByte;
 boolean xferMessages = true;
 
-SoftwareSerial radioSerial(9, 8);
-SoftwareSerial debugSerial(7, 6);
+NeoSWSerial radioSerial(9, 8);
+NeoSWSerial debugSerial(7, 6);
 
 void setup() {
   Serial.begin(4800);
@@ -158,8 +157,10 @@ String translateVtg(char *message) {
 }
 
 void sendToRadio(String outputMsg) {
+  radioSerial.listen();
   radioSerial.print(outputMsg);
-  debugSerial.print("uC->RADIO: ");
+  debugSerial.listen();
+  debugSerial.print("uC->radio: ");
   debugSerial.print(outputMsg);
 }
 
