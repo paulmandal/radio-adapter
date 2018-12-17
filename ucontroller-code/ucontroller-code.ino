@@ -77,7 +77,6 @@ void loop() {
 void handleMessage(char *message) {
   debugSerial.print("GPS->uC: ");
   debugSerial.write(message, bufferPos);
-  debugSerial.println();
   // Determine the message type
   String outputMsg;
   boolean sendMsgToRadio = false;
@@ -159,9 +158,9 @@ String translateVtg(char *message) {
 }
 
 void sendToRadio(String outputMsg) {
-  radioSerial.println(outputMsg);
+  radioSerial.print(outputMsg);
   debugSerial.print("uC->RADIO: ");
-  debugSerial.println(outputMsg);
+  debugSerial.print(outputMsg);
 }
 
 String padNumber(String input, int count) {  

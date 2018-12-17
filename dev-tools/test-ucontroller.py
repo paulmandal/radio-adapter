@@ -39,7 +39,7 @@ for line in input_lines:
 
     while True:
         response = radio_port.readline()
-        response = response.decode()
+        response = response.decode().rstrip()
         if len(response) > 0:
             print(' read: {response}'.format(response=response))
         else:
