@@ -105,14 +105,12 @@ char *ggaTransform(char *message, Stream &ser) {
  * Yaesu VX-8DR NMEA message
  */
 char *gllTransform(char *message, Stream &ser) {
-  ser.println("gllTransform");
   char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
   // Check if we have a fix before attempting to translate msg
   if(message[7] == ',') {
     return outputMessage;
   }
 
-  ser.println("message has contents");
   char *p;
   double lat;
   char *northSouth;
@@ -135,7 +133,6 @@ char *gllTransform(char *message, Stream &ser) {
   p = strtok(NULL, ",");
   status = p;
 
-  ser.println("read all tokens");
   sprintf(outputMessage, "$GPGLL,%09.4f,%s,%09.4f,%s,%010.3f,%s,%s*FF",
                          lat,
                          northSouth,
@@ -144,8 +141,6 @@ char *gllTransform(char *message, Stream &ser) {
                          timestamp,
                          status);
 
-  ser.print("output message: ");
-  ser.println(outputMessage);
   return outputMessage;
 }
 
@@ -154,7 +149,61 @@ char *gllTransform(char *message, Stream &ser) {
  * Yaesu VX-8DR NMEA message
  */
 char *rmcTransform(char *message, Stream &ser) {
-  return defaultTransform(message, ser);
+  char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
+  // Check if we have a fix before attempting to translate msg
+  if(message[7] == ',') {
+    return outputMessage;
+  }
+
+  char *p;
+  double timestamp;
+  char *status;
+  double lat;
+  char *northSouth;
+  double lon;
+  char *eastWest;
+  float speed;
+  float trackDegrees;
+  long utDate;
+  float variation;
+  char *trackEastWest;
+
+  p = strtok(message, ",");
+  p = strtok(NULL, ",");
+  timestamp = atof(p);
+  p = strtok(NULL, ",");
+  status = p;
+  p = strtok(NULL, ",");
+  lat = atof(p);
+  p = strtok(NULL, ",");
+  northSouth = p;
+  p = strtok(NULL, ",");
+  lon = atof(p);
+  p = strtok(NULL, ",");
+  eastWest = p;
+  p = strtok(NULL, ",");
+  speed = atof(p);
+  p = strtok(NULL, ",");
+  trackDegrees = atof(p);
+  p = strtok(NULL, ",");
+  utDate = atol(p);
+  p = strtok(NULL, ",");
+  variation = atof(p);
+  p = strtok(NULL, ",");
+  trackEastWest = p;
+
+  sprintf(outputMessage, "$GPRMC,%010.3f,%s,%09.4f,%s,%010.4f,%s,%07.2f,%06.2f,%06ld,,*FF",
+                         timestamp,
+                         status,
+                         lat,
+                         northSouth,
+                         lon,
+                         eastWest,
+                         speed,
+                         trackDegrees,
+                         utDate);
+
+  return outputMessage;
 }
 
 /**
