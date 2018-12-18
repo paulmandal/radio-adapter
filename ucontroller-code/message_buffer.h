@@ -4,8 +4,6 @@
 #ifndef MessageBuffer_h
 #define MessageBuffer_h
 
-#include "Arduino.h"
-
 class MessageBuffer {
   public:
     MessageBuffer(int bufferSize);

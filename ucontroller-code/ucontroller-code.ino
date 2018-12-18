@@ -9,7 +9,6 @@
 #include <NeoHWSerial.h>
 
 #include "message_buffer.h"
-#include "string_manip.h"
 #include "msg_transform.h"
 #include "transform_mapping.h"
 

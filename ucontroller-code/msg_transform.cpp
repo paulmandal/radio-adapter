@@ -4,7 +4,6 @@
 #include <stdbool.h>
 
 #include "Arduino.h"
-#include "msg_transform.h"
 
 #define BUFFER_SIZE 128
 
@@ -81,7 +80,7 @@ char *ggaTransform(char *message) {
   p = strtok(NULL, "*");
   stationId = atol(p);
 
-  sprintf(outputMessage, "$GPGGA,%010.3f,%09.4f,%s,%010.4f,%s,%1d,%02d,%04.1f,%07.1f,%s,%06.1f,%s,%05.1f,%04d*FF",
+  sprintf(outputMessage, "$GPGGA,%010.3f,%09.4f,%s,%010.4f,%s,%1d,%02d,%04.1f,%07.1f,%s,%06.1f,%s,%05.1f,%04d*FF\n",
                          timestamp,
                          lat,
                          northSouth,
@@ -135,7 +134,7 @@ char *gllTransform(char *message) {
   p = strtok(NULL, "*");
   unknown = p;
 
-  sprintf(outputMessage, "$GPGLL,%09.4f,%s,%09.4f,%s,%010.3f,%s,%s*FF",
+  sprintf(outputMessage, "$GPGLL,%09.4f,%s,%09.4f,%s,%010.3f,%s,%s*FF\n",
                          lat,
                          northSouth,
                          lon,
@@ -195,7 +194,7 @@ char *rmcTransform(char *message) {
   p = strtok(NULL, ",");
   trackEastWest = p;
 
-  sprintf(outputMessage, "$GPRMC,%010.3f,%s,%09.4f,%s,%010.4f,%s,%07.2f,%06.2f,%06ld,,*FF",
+  sprintf(outputMessage, "$GPRMC,%010.3f,%s,%09.4f,%s,%010.4f,%s,%07.2f,%06.2f,%06ld,,*FF\n",
                          timestamp,
                          statusStr,
                          lat,
@@ -251,7 +250,7 @@ char *vtgTransform(char *message) {
   p = strtok(NULL, "*");
   unknown = p;
 
-  sprintf(outputMessage, "$GPVTG,,%s,,%s,%4.2f,%s,%3.1f,%s,%s*FF",
+  sprintf(outputMessage, "$GPVTG,,%s,,%s,%4.2f,%s,%3.1f,%s,%s*FF\n",
                          degreesTrueRelative,
                          degreesMagneticRelative,
                          currentSpeed,
