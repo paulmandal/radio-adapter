@@ -117,7 +117,7 @@ char *gllTransform(char *message, Stream &ser) {
   double lon;
   char *eastWest;
   double timestamp;
-  char *status;
+  char *statusStr;
 
   p = strtok(message, ",");
   p = strtok(NULL, ",");
@@ -131,7 +131,7 @@ char *gllTransform(char *message, Stream &ser) {
   p = strtok(NULL, ",");
   timestamp = atof(p);
   p = strtok(NULL, ",");
-  status = p;
+  statusStr = p;
 
   sprintf(outputMessage, "$GPGLL,%09.4f,%s,%09.4f,%s,%010.3f,%s,%s*FF",
                          lat,
@@ -139,7 +139,7 @@ char *gllTransform(char *message, Stream &ser) {
                          lon,
                          eastWest,
                          timestamp,
-                         status);
+                         statusStr);
 
   return outputMessage;
 }
@@ -157,12 +157,12 @@ char *rmcTransform(char *message, Stream &ser) {
 
   char *p;
   double timestamp;
-  char *status;
+  char *statusStr;
   double lat;
   char *northSouth;
   double lon;
   char *eastWest;
-  float speed;
+  float currentSpeed;
   float trackDegrees;
   long utDate;
   float variation;
@@ -172,7 +172,7 @@ char *rmcTransform(char *message, Stream &ser) {
   p = strtok(NULL, ",");
   timestamp = atof(p);
   p = strtok(NULL, ",");
-  status = p;
+  statusStr = p;
   p = strtok(NULL, ",");
   lat = atof(p);
   p = strtok(NULL, ",");
@@ -182,7 +182,7 @@ char *rmcTransform(char *message, Stream &ser) {
   p = strtok(NULL, ",");
   eastWest = p;
   p = strtok(NULL, ",");
-  speed = atof(p);
+  currentSpeed = atof(p);
   p = strtok(NULL, ",");
   trackDegrees = atof(p);
   p = strtok(NULL, ",");
@@ -194,12 +194,12 @@ char *rmcTransform(char *message, Stream &ser) {
 
   sprintf(outputMessage, "$GPRMC,%010.3f,%s,%09.4f,%s,%010.4f,%s,%07.2f,%06.2f,%06ld,,*FF",
                          timestamp,
-                         status,
+                         statusStr,
                          lat,
                          northSouth,
                          lon,
                          eastWest,
-                         speed,
+                         currentSpeed,
                          trackDegrees,
                          utDate);
 
@@ -222,7 +222,7 @@ char *vtgTransform(char *message, Stream &ser) {
   char *degreesTrueRelative;
   double degreesMagnetic;
   char *degreesMagneticRelative;
-  double speed;
+  double currentSpeed;
   char *speedUnit;
   double speedOverGround;
   char *speedOverGroundUnit;
@@ -237,7 +237,7 @@ char *vtgTransform(char *message, Stream &ser) {
   p = strtok(NULL, ",");
   degreesMagneticRelative = p;
   p = strtok(NULL, ",");
-  speed = atof(p);
+  currentSpeed = atof(p);
   p = strtok(NULL, ",");
   speedUnit = p;
   p = strtok(NULL, ",");
@@ -248,7 +248,7 @@ char *vtgTransform(char *message, Stream &ser) {
   sprintf(outputMessage, "$GPVTG,,%s,,%s,%4.2f,%s,%3.1f,%s,a*FF",
                          degreesTrueRelative,
                          degreesMagneticRelative,
-                         speed,
+                         currentSpeed,
                          speedUnit,
                          speedOverGround,
                          speedOverGroundUnit);
