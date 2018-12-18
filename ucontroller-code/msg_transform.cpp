@@ -211,7 +211,49 @@ char *rmcTransform(char *message, Stream &ser) {
  * Yaesu VX-8DR NMEA message
  */
 char *vtgTransform(char *message, Stream &ser) {
-  return defaultTransform(message, ser);
+  char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
+  // Check if we have a fix before attempting to translate msg
+  if(message[7] == ',') {
+    return outputMessage;
+  }
+
+  char *p;
+  double degreesTrue;
+  char *degreesTrueRelative;
+  double degreesMagnetic;
+  char *degreesMagneticRelative;
+  double speed;
+  char *speedUnit;
+  double speedOverGround;
+  char *speedOverGroundUnit;
+
+  p = strtok(message, ",");
+  p = strtok(NULL, ",");
+  degreesTrue = atof(p);
+  p = strtok(NULL, ",");
+  degreesTrueRelative = p;
+  p = strtok(NULL, ",");
+  degreesMagnetic = atof(p);
+  p = strtok(NULL, ",");
+  degreesMagneticRelative = p;
+  p = strtok(NULL, ",");
+  speed = atof(p);
+  p = strtok(NULL, ",");
+  speedUnit = p;
+  p = strtok(NULL, ",");
+  speedOverGround = atof(p);
+  p = strtok(NULL, ",");
+  speedOverGroundUnit = p;
+
+  sprintf(outputMessage, "$GPVTG,,%s,,%s,%4.2f,%s,%3.1f,%s,a*FF",
+                         degreesTrueRelative,
+                         degreesMagneticRelative,
+                         speed,
+                         speedUnit,
+                         speedOverGround,
+                         speedOverGroundUnit);
+
+  return outputMessage;
 }
 
 /**
