@@ -1,11 +1,15 @@
 /**
  * Message transformation function definitions
  */
+#include <stdbool.h>
+
 #include "Arduino.h"
 #include "msg_transform.h"
 
 MessageTransform::MessageTransform(FieldResize leftPaddings[],
                                    int leftPaddingsSize,
+                                   FieldResize rightPaddings[],
+                                   int rightPaddingsSize,
                                    FieldResize rightShrinks[],
                                    int rightShrinksSize,
                                    FieldAddition prefixes[],
@@ -14,9 +18,13 @@ MessageTransform::MessageTransform(FieldResize leftPaddings[],
                                    int suffixesSize,
                                    ConstantField constants[],
                                    int constantsSize,
+                                   int drops[],
+                                   int dropsSize,
                                    const char *messageEnd) {
   _leftPaddings = leftPaddings;
   _leftPaddingsSize = leftPaddingsSize;
+  _rightPaddings = rightPaddings;
+  _rightPaddingsSize = rightPaddingsSize;
   _rightShrinks = rightShrinks;
   _rightShrinksSize = rightShrinksSize;
   _prefixes = prefixes;
@@ -25,6 +33,8 @@ MessageTransform::MessageTransform(FieldResize leftPaddings[],
   _suffixesSize = suffixesSize;
   _constants = constants;
   _constantsSize = constantsSize;
+  _drops = drops;
+  _dropsSize = dropsSize;
   _messageEnd = messageEnd;
 }
 
@@ -55,6 +65,22 @@ char *MessageTransform::transform(char *message) {
         free(padded);
       }
     }
+    // Pad right fields
+    for(int i = 0 ; i < _rightPaddingsSize ; i++) {
+      if(fieldCount == _rightPaddings[i].index) {
+        char *padded = rightPadNumber(tmp, _rightPaddings[i].size);
+        strcpy(tmp, padded);
+        free(padded);
+      }
+    }
+    // Shrink fields
+    for(int i = 0 ; i < _rightShrinksSize ; i++) {
+      if(fieldCount == _rightShrinks[i].index) {
+        if(strlen(tmp) > _rightShrinks[i].size) {
+          tmp[_rightShrinks[i].size] = '\0';
+        }
+      }
+    }
     // Prefix fields
     for(int i = 0 ; i < _prefixesSize ; i++) {
       if(fieldCount == _prefixes[i].index) {
@@ -77,23 +103,26 @@ char *MessageTransform::transform(char *message) {
         strcpy(tmp, _constants[i].value);
       }
     }
-    // Shrink fields
-    for(int i = 0 ; i < _rightShrinksSize ; i++) {
-      if(fieldCount == _rightShrinks[i].index) {
-        if(strlen(tmp) > _rightShrinks[i].size) {
-          tmp[_rightShrinks[i].size] = '\0';
-        }
+    // Drop fields
+    bool dropField = false;
+    for(int i = 0 ; i < _dropsSize ; i++) {
+      if(fieldCount == _drops[i]) {
+        dropField = true;
       }
     }
-    // Drop fields
-    strcat(outputMessage, tmp);
+    if(!dropField) {
+      strcat(outputMessage, tmp);
+    }
+
     strcat(outputMessage, ",");
     lastFieldStart = fieldEnd + 1;
     fieldEnd = strchr(lastFieldStart, ',');
     fieldCount++;
   }
+  free(tmp);
+  // Message end
   strcat(outputMessage, _messageEnd);
   strcat(outputMessage, lastFieldStart);
-  free(tmp);
+
   return outputMessage;
 }
