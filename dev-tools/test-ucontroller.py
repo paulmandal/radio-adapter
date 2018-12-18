@@ -17,7 +17,7 @@ RADIO_SERIAL = sys.argv[3]
 OUTPUT_EXPECTED = len(sys.argv) > 4 and sys.argv[4] == '--output-expected'
 
 gps_port = serial.Serial(GPS_SERIAL, 4800)
-radio_port = serial.Serial(RADIO_SERIAL, 9600, timeout=0.5)
+radio_port = serial.Serial(RADIO_SERIAL, 9600, timeout=0.3)
 
 message_formats = {
     '$GPGGA': '$GPGGA,hhmmss.sss,llll.llll,a,yyyyy.yyyy,a,x,xx,xx.x,xxxxx.x,M,xxxx.x,M,xxx.x,xxxx*hh',

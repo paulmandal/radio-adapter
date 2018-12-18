@@ -12,7 +12,7 @@ if len(sys.argv) < 2:
 
 RADIO_SERIAL = sys.argv[1]
 
-radio_port = serial.Serial(RADIO_SERIAL, 9600, timeout=0.5)
+radio_port = serial.Serial(RADIO_SERIAL, 9600)
 
 message_formats = {
     '$GPGGA': '$GPGGA,hhmmss.sss,llll.llll,a,yyyyy.yyyy,a,x,xx,xx.x,xxxxx.x,M,xxxx.x,M,xxx.x,xxxx*hh',
