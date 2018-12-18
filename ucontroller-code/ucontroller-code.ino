@@ -18,7 +18,7 @@ volatile MessageBuffer queuedMessage(MSG_BUFFER_SIZE);
 
 boolean xferMessages = true;
 
-extern MessageTransform ggaTransform;
+extern const TransformMapping transformMap[];
 
 NeoSWSerial radioSerial(9, 8);
 NeoSWSerial debugSerial(7, 6);
@@ -27,9 +27,10 @@ void setup() {
   NeoSerial.attachInterrupt(handleGpsInput);
   NeoSerial.begin(4800);
   radioSerial.begin(9600);
+
   debugSerial.attachInterrupt(handleDebugInput);
   debugSerial.begin(9600);
-  debugSerial.println("Debug Serial Output - Application started.");
+  debugSerial.println("Debug serial output - application started.");
 }
 
 /**
@@ -80,90 +81,44 @@ void handleSerialInput(char c, volatile MessageBuffer &messageBuffer) {
 void handleMessage(char *message) {
   debugSerial.print("GPS->uC:   ");
   debugSerial.print(message);
-  // Determine the message type
-  String outputMsg;
-  boolean sendMsgToRadio = false;
-  if(strncmp(message, "$GPGGA", 6) == 0) {
-    outputMsg = ggaTransform.transform(message);
-  } else if(strncmp(message, "$GPGLL", 6) == 0) {
-    outputMsg = translateGgl(message);
-  } else if(strncmp(message, "$GPRMC", 6) == 0) {
-    outputMsg = translateRmc(message);
-  } else if(strncmp(message, "$GPVTG", 6) == 0) {
-    outputMsg = translateVtg(message);
-  } else if(strncmp(message, "$XFER", 5) == 0) {
-    // handle cmd
+
+  // Check for debugging messages
+  if(strncmp(message, "$XFER", 5) == 0) {
+    // handle debug message transfer toggle command
     xferMessages = !xferMessages;
     debugSerial.print("xferMessages: ");
-    debugSerial.println(xferMessages); 
+    debugSerial.println(xferMessages);
   }
-  if(outputMsg.length() > 0 && xferMessages) {
-    sendToRadio(outputMsg);
-  }
-}
 
-String translateGga(char *message) {
-  // Check if we have a fix before attempting to translate msg
-  if(message[7] == ',') {
+  if(!xferMessages) {
+    // No need to process messages if we're not sending them to the radio
     return;
   }
-  String gpsMsg = String(message);  
-  String outputMsg;
-  String tmp;
-  int paddingIndexes[] = {7, 8, 9, 11, 14};
-  int paddingSizes[] = {2, 4, 7, 6, 4};
-  int count = 0;
-  int comma = gpsMsg.indexOf(',');
-  while(comma != -1) {
-    tmp = gpsMsg.substring(0, comma);
-    for(int i = 0 ; i < (sizeof(paddingIndexes)/sizeof(int)) ; i++) {
-      if(count == paddingIndexes[i]) {
-        tmp = leftPadNumber(tmp, paddingSizes[i]);
-      }
+
+  // Determine the message type and apply the appropriate transform
+  char *outputMessage;
+  for(int i = 0 ; i < (sizeof(transformMap) / sizeof(TransformMapping)) ; i++) {
+    if(strncmp(message, transformMap[i].nmeaMessageType, 6) == 0) {
+      outputMessage = transformMap[i].transformer.transform(message);
+      break;
     }
-    if(count == 1) {
-      tmp += ".000";
-    } else if(count == 13) {
-      tmp = "000.0";
-    }
-    outputMsg += tmp;
-    outputMsg += ",";
-    gpsMsg = gpsMsg.substring(comma + 1);
-    comma = gpsMsg.indexOf(',');
-    count++;
   }
-  outputMsg += "0000";
-  outputMsg += gpsMsg;
-  return outputMsg;
-}
 
-String translateGgl(char *message) {
-    // Does nothing -- need to figure out message syntax
-    String outputMsg = "";
-    return outputMsg;
-}
-
-String translateRmc(char *message) {
-  String gpsMsg = String(message);
-  String outputMsg = gpsMsg.substring(0, 13);
-  return outputMsg;
-//  Serial.println(outputMsg);  
-}
-
-String translateVtg(char *message) {
-    // Does nothing
-    String outputMsg = "";
-    return outputMsg;
+  if(strlen(outputMessage) > 0 && xferMessages) {
+    sendToRadio(outputMessage);
+  }
+  free(outputMessage);
 }
 
 /**
  * Send a message to the radio and debug serial ports
  */
-void sendToRadio(String outputMsg) {
+void sendToRadio(char *message) {
   radioSerial.listen();
-  radioSerial.print(outputMsg);
+  radioSerial.print(message);
+
   debugSerial.listen();
   debugSerial.print("uC->radio: ");
-  debugSerial.print(outputMsg);
+  debugSerial.print(message);
 }
 

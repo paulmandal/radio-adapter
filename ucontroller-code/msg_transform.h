@@ -7,43 +7,43 @@
 #include "Arduino.h"
 #include "string_manip.h"
 
-struct PaddingInfo {
+struct FieldPadding {
   int index;
   int size;
 };
 
-struct StaticAddition {
+struct FieldAddition {
   int index;
-  String addition;
+  const char *addition;
 };
 
-struct StaticField {
+struct ConstantField {
   int index;
-  String value;
+  const char *value;
 };
 
 class MessageTransform {
   public:
-    MessageTransform(PaddingInfo paddingInfo[],
-                     int paddingInfoSize,
-                     StaticAddition prefixInfo[], 
-                     int prefixInfoSize,
-                     StaticAddition suffixInfo[], 
-                     int suffixInfoSize,
-                     StaticField staticInfo[],
-                     int staticInfoSize,
-                     String messageEnd);
-    String transform(char *message);
+    MessageTransform(FieldPadding leftPaddings[],
+                     int leftPaddingsSize,
+                     FieldAddition prefixes[],
+                     int prefixesSize,
+                     FieldAddition suffixes[],
+                     int suffixesSize,
+                     ConstantField constants[],
+                     int constantsSize,
+                     const char *messageEnd);
+    char *transform(char *message);
   private:
-    PaddingInfo *_paddingInfo;
-    int _paddingInfoSize;
-    StaticAddition *_prefixInfo;
-    int _prefixInfoSize;
-    StaticAddition *_suffixInfo;
-    int _suffixInfoSize;
-    StaticField *_staticInfo;
-    int _staticInfoSize;
-    String _messageEnd;
+    FieldPadding *_leftPaddings;
+    int _leftPaddingsSize;
+    FieldAddition *_prefixes;
+    int _prefixesSize;
+    FieldAddition *_suffixes;
+    int _suffixesSize;
+    ConstantField *_constants;
+    int _constantsSize;
+    const char *_messageEnd;
 };
 
 #endif
