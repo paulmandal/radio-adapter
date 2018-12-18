@@ -12,7 +12,7 @@
  * Transform a variable-length Garmin NMEA message into a fixed-length
  * Yaesu VX-8DR NMEA message
  */
-char *defaultTransform(char *message, Stream &ser) {
+char *defaultTransform(char *message) {
   char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
   // Check if we have a fix before attempting to translate msg
   if(message[7] == ',') {
@@ -28,8 +28,7 @@ char *defaultTransform(char *message, Stream &ser) {
  * Transform a variable-length Garmin GGA NMEA message into a fixed-length
  * Yaesu VX-8DR NMEA message
  */
-char *ggaTransform(char *message, Stream &ser) {
-  ser.println("ggaTransform");
+char *ggaTransform(char *message) {
   char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
   // Check if we have a fix before attempting to translate msg
   if(message[7] == ',') {
@@ -104,7 +103,7 @@ char *ggaTransform(char *message, Stream &ser) {
  * Transform a variable-length Garmin GLL NMEA message into a fixed-length
  * Yaesu VX-8DR NMEA message
  */
-char *gllTransform(char *message, Stream &ser) {
+char *gllTransform(char *message) {
   char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
   // Check if we have a fix before attempting to translate msg
   if(message[7] == ',') {
@@ -152,7 +151,7 @@ char *gllTransform(char *message, Stream &ser) {
  * Transform a variable-length Garmin RMC NMEA message into a fixed-length
  * Yaesu VX-8DR NMEA message
  */
-char *rmcTransform(char *message, Stream &ser) {
+char *rmcTransform(char *message) {
   char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
   // Check if we have a fix before attempting to translate msg
   if(message[7] == ',') {
@@ -214,7 +213,7 @@ char *rmcTransform(char *message, Stream &ser) {
  * Transform a variable-length Garmin VTG NMEA message into a fixed-length
  * Yaesu VX-8DR NMEA message
  */
-char *vtgTransform(char *message, Stream &ser) {
+char *vtgTransform(char *message) {
   char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
   // Check if we have a fix before attempting to translate msg
   if(message[7] == ',') {
@@ -268,22 +267,22 @@ char *vtgTransform(char *message, Stream &ser) {
  * Transform a variable-length Garmin GSA NMEA message into a fixed-length
  * Yaesu VX-8DR NMEA message
  */
-char *gsaTransform(char *message, Stream &ser) {
-  return defaultTransform(message, ser);
+char *gsaTransform(char *message) {
+  return defaultTransform(message);
 }
 
 /**
  * Transform a variable-length Garmin GSV NMEA message into a fixed-length
  * Yaesu VX-8DR NMEA message
  */
-char *gsvTransform(char *message, Stream &ser) {
-  return defaultTransform(message, ser);
+char *gsvTransform(char *message) {
+  return defaultTransform(message);
 }
 
 /**
  * Transform a variable-length Garmin ZDA NMEA message into a fixed-length
  * Yaesu VX-8DR NMEA message
  */
-char *zdaTransform(char *message, Stream &ser) {
-  return defaultTransform(message, ser);
+char *zdaTransform(char *message) {
+  return defaultTransform(message);
 }

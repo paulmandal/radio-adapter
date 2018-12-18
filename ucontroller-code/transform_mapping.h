@@ -9,7 +9,7 @@
 
 struct TransformMapping {
   const char *nmeaMessageType;
-  char *(*transform)(char *, Stream &ser);
+  char *(*transform)(char *);
 };
 
 extern const TransformMapping transformMap[] = {
