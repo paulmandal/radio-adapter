@@ -7,5 +7,6 @@
 #include "Arduino.h"
 
 char *leftPadNumber(char *input, int targetLength);
+char *rightPadNumber(char *input, int targetLength);
 
 #endif
