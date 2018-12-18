@@ -13,7 +13,7 @@
 #include "msg_transform.h"
 #include "transform_mapping.h"
 
-const int MSG_BUFFER_SIZE = 256;
+#define MSG_BUFFER_SIZE 128
 
 volatile MessageBuffer gpsMessageBuffer(MSG_BUFFER_SIZE);
 volatile MessageBuffer debugMessageBuffer(MSG_BUFFER_SIZE);
