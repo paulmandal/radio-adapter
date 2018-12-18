@@ -79,7 +79,7 @@ char *ggaTransform(char *message, Stream &ser) {
   geoIdHeightUnit = p;
   p = strtok(NULL, ",");
   timeSinceLastUpdate = atol(p);
-  p = strtok(NULL, ",");
+  p = strtok(NULL, "*");
   stationId = atol(p);
 
   sprintf(outputMessage, "$GPGGA,%010.3f,%09.4f,%s,%010.4f,%s,%1d,%02d,%04.1f,%07.1f,%s,%06.1f,%s,%05.1f,%04d*FF",
@@ -118,6 +118,7 @@ char *gllTransform(char *message, Stream &ser) {
   char *eastWest;
   double timestamp;
   char *statusStr;
+  char *unknown;
 
   p = strtok(message, ",");
   p = strtok(NULL, ",");
@@ -132,6 +133,8 @@ char *gllTransform(char *message, Stream &ser) {
   timestamp = atof(p);
   p = strtok(NULL, ",");
   statusStr = p;
+  p = strtok(NULL, "*");
+  unknown = p;
 
   sprintf(outputMessage, "$GPGLL,%09.4f,%s,%09.4f,%s,%010.3f,%s,%s*FF",
                          lat,
@@ -139,7 +142,8 @@ char *gllTransform(char *message, Stream &ser) {
                          lon,
                          eastWest,
                          timestamp,
-                         statusStr);
+                         statusStr,
+                         unknown);
 
   return outputMessage;
 }
@@ -226,6 +230,7 @@ char *vtgTransform(char *message, Stream &ser) {
   char *speedUnit;
   double speedOverGround;
   char *speedOverGroundUnit;
+  char *unknown;
 
   p = strtok(message, ",");
   p = strtok(NULL, ",");
@@ -244,14 +249,17 @@ char *vtgTransform(char *message, Stream &ser) {
   speedOverGround = atof(p);
   p = strtok(NULL, ",");
   speedOverGroundUnit = p;
+  p = strtok(NULL, "*");
+  unknown = p;
 
-  sprintf(outputMessage, "$GPVTG,,%s,,%s,%4.2f,%s,%3.1f,%s,a*FF",
+  sprintf(outputMessage, "$GPVTG,,%s,,%s,%4.2f,%s,%3.1f,%s,%s*FF",
                          degreesTrueRelative,
                          degreesMagneticRelative,
                          currentSpeed,
                          speedUnit,
                          speedOverGround,
-                         speedOverGroundUnit);
+                         speedOverGroundUnit,
+                         unknown);
 
   return outputMessage;
 }
