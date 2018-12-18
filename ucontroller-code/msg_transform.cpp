@@ -34,51 +34,21 @@ char *ggaTransform(char *message) {
     return outputMessage;
   }
 
-  char *p;
-  double timestamp;
-  double lat;
-  char *northSouth;
-  double lon;
-  char *eastWest;
-  int fixQuality;
-  int numSatellites;
-  float horizontalDilutionOfPrecision;
-  float altitude;
-  char *altitudeUnit;
-  float geoIdHeight;
-  char *geoIdHeightUnit;
-  long timeSinceLastUpdate;
-  long stationId;
-
-  p = strtok(message, ",");
-  p = strtok(NULL, ",");
-  timestamp = atof(p);
-  p = strtok(NULL, ",");
-  lat = atof(p);
-  p = strtok(NULL, ",");
-  northSouth = p;
-  p = strtok(NULL, ",");
-  lon = atof(p);
-  p = strtok(NULL, ",");
-  eastWest = p;
-  p = strtok(NULL, ",");
-  fixQuality = atoi(p);
-  p = strtok(NULL, ",");
-  numSatellites = atoi(p);
-  p = strtok(NULL, ",");
-  horizontalDilutionOfPrecision = atof(p);
-  p = strtok(NULL, ",");
-  altitude = atof(p);
-  p = strtok(NULL, ",");
-  altitudeUnit = p;
-  p = strtok(NULL, ",");
-  geoIdHeight = atof(p);
-  p = strtok(NULL, ",");
-  geoIdHeightUnit = p;
-  p = strtok(NULL, ",");
-  timeSinceLastUpdate = atol(p);
-  p = strtok(NULL, "*");
-  stationId = atol(p);
+  strtok(message, ",");
+  double timestamp = atof(strtok(NULL, ","));;
+  double lat = atof(strtok(NULL, ","));
+  char *northSouth = strtok(NULL, ",");
+  double lon = atof(strtok(NULL, ","));
+  char *eastWest = strtok(NULL, ",");
+  int fixQuality = atoi(strtok(NULL, ","));
+  int numSatellites = atoi(strtok(NULL, ","));
+  float horizontalDilutionOfPrecision = atof(strtok(NULL, ","));
+  float altitude = atof(strtok(NULL, ","));
+  char *altitudeUnit = strtok(NULL, ",");
+  float geoIdHeight = atof(strtok(NULL, ","));
+  char *geoIdHeightUnit = strtok(NULL, ",");
+  long timeSinceLastUpdate = atol(strtok(NULL, ","));
+  long stationId = atol(strtok(NULL, "*"));
 
   sprintf(outputMessage, "$GPGGA,%010.3f,%09.4f,%s,%010.4f,%s,%1d,%02d,%04.1f,%07.1f,%s,%06.1f,%s,%05.1f,%04d*FF\n",
                          timestamp,
@@ -109,30 +79,14 @@ char *gllTransform(char *message) {
     return outputMessage;
   }
 
-  char *p;
-  double lat;
-  char *northSouth;
-  double lon;
-  char *eastWest;
-  double timestamp;
-  char *statusStr;
-  char *unknown;
-
-  p = strtok(message, ",");
-  p = strtok(NULL, ",");
-  lat = atof(p);
-  p = strtok(NULL, ",");
-  northSouth = p;
-  p = strtok(NULL, ",");
-  lon = atof(p);
-  p = strtok(NULL, ",");
-  eastWest = p;
-  p = strtok(NULL, ",");
-  timestamp = atof(p);
-  p = strtok(NULL, ",");
-  statusStr = p;
-  p = strtok(NULL, "*");
-  unknown = p;
+  strtok(message, ",");
+  double lat = atof(strtok(NULL, ","));
+  char *northSouth = strtok(NULL, ",");
+  double lon = atof(strtok(NULL, ","));
+  char *eastWest = strtok(NULL, ",");
+  double timestamp = atof(strtok(NULL, ","));
+  char *statusStr = strtok(NULL, ",");
+  char *unknown = strtok(NULL, "*");
 
   sprintf(outputMessage, "$GPGLL,%09.4f,%s,%09.4f,%s,%010.3f,%s,%s*FF\n",
                          lat,
@@ -157,42 +111,18 @@ char *rmcTransform(char *message) {
     return outputMessage;
   }
 
-  char *p;
-  double timestamp;
-  char *statusStr;
-  double lat;
-  char *northSouth;
-  double lon;
-  char *eastWest;
-  float currentSpeed;
-  float trackDegrees;
-  long utDate;
-  float variation;
-  char *trackEastWest;
-
-  p = strtok(message, ",");
-  p = strtok(NULL, ",");
-  timestamp = atof(p);
-  p = strtok(NULL, ",");
-  statusStr = p;
-  p = strtok(NULL, ",");
-  lat = atof(p);
-  p = strtok(NULL, ",");
-  northSouth = p;
-  p = strtok(NULL, ",");
-  lon = atof(p);
-  p = strtok(NULL, ",");
-  eastWest = p;
-  p = strtok(NULL, ",");
-  currentSpeed = atof(p);
-  p = strtok(NULL, ",");
-  trackDegrees = atof(p);
-  p = strtok(NULL, ",");
-  utDate = atol(p);
-  p = strtok(NULL, ",");
-  variation = atof(p);
-  p = strtok(NULL, ",");
-  trackEastWest = p;
+  strtok(message, ",");
+  double timestamp = atof(strtok(NULL, ","));
+  char *statusStr = strtok(NULL, ",");
+  double lat = atof(strtok(NULL, ","));
+  char *northSouth = strtok(NULL, ",");
+  double lon = atof(strtok(NULL, ","));
+  char *eastWest = strtok(NULL, ",");
+  float currentSpeed = atof(strtok(NULL, ","));
+  float trackDegrees = atof(strtok(NULL, ","));
+  long utDate = atol(strtok(NULL, ","));
+  float variation = atof(strtok(NULL, ","));
+  char *trackEastWest = strtok(NULL, ",");
 
   sprintf(outputMessage, "$GPRMC,%010.3f,%s,%09.4f,%s,%010.4f,%s,%07.2f,%06.2f,%06ld,,*FF\n",
                          timestamp,
@@ -219,36 +149,16 @@ char *vtgTransform(char *message) {
     return outputMessage;
   }
 
-  char *p;
-  double degreesTrue;
-  char *degreesTrueRelative;
-  double degreesMagnetic;
-  char *degreesMagneticRelative;
-  double currentSpeed;
-  char *speedUnit;
-  double speedOverGround;
-  char *speedOverGroundUnit;
-  char *unknown;
-
-  p = strtok(message, ",");
-  p = strtok(NULL, ",");
-  degreesTrue = atof(p);
-  p = strtok(NULL, ",");
-  degreesTrueRelative = p;
-  p = strtok(NULL, ",");
-  degreesMagnetic = atof(p);
-  p = strtok(NULL, ",");
-  degreesMagneticRelative = p;
-  p = strtok(NULL, ",");
-  currentSpeed = atof(p);
-  p = strtok(NULL, ",");
-  speedUnit = p;
-  p = strtok(NULL, ",");
-  speedOverGround = atof(p);
-  p = strtok(NULL, ",");
-  speedOverGroundUnit = p;
-  p = strtok(NULL, "*");
-  unknown = p;
+  strtok(message, ",");
+  double degreesTrue = atof(strtok(NULL, ","));
+  char *degreesTrueRelative = strtok(NULL, ",");
+  double degreesMagnetic = atof(strtok(NULL, ","));
+  char *degreesMagneticRelative = strtok(NULL, ",");
+  double currentSpeed = atof(strtok(NULL, ","));
+  char *speedUnit = strtok(NULL, ",");
+  double speedOverGround = atof(strtok(NULL, ","));
+  char *speedOverGroundUnit = strtok(NULL, ",");
+  char *unknown = strtok(NULL, "*");
 
   sprintf(outputMessage, "$GPVTG,,%s,,%s,%4.2f,%s,%3.1f,%s,%s*FF\n",
                          degreesTrueRelative,
