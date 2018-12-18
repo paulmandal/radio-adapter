@@ -7,6 +7,7 @@ Adapter board to connect a Yaesu VX-8DR with a Garmin GPSmap64 and various .mil 
 
 - [Arduino](https://www.arduino.cc/en/Main/Software)
 - [Eagle](https://www.autodesk.com/products/eagle/free-download)
+- You must copy `ucontroller-code/platform.local.txt` to your `$ARDUINO_HOME/hardware/arduino/avr` directory to enable printf formatting of floats
 
 # Table of Contents
 
