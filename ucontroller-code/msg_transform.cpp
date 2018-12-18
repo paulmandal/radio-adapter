@@ -4,8 +4,10 @@
 #include "Arduino.h"
 #include "msg_transform.h"
 
-MessageTransform::MessageTransform(FieldPadding leftPaddings[],
+MessageTransform::MessageTransform(FieldResize leftPaddings[],
                                    int leftPaddingsSize,
+                                   FieldResize rightShrinks[],
+                                   int rightShrinksSize,
                                    FieldAddition prefixes[],
                                    int prefixesSize,
                                    FieldAddition suffixes[],
@@ -15,6 +17,8 @@ MessageTransform::MessageTransform(FieldPadding leftPaddings[],
                                    const char *messageEnd) {
   _leftPaddings = leftPaddings;
   _leftPaddingsSize = leftPaddingsSize;
+  _rightShrinks = rightShrinks;
+  _rightShrinksSize = rightShrinksSize;
   _prefixes = prefixes;
   _prefixesSize = prefixesSize;
   _suffixes = suffixes;
@@ -43,7 +47,7 @@ char *MessageTransform::transform(char *message) {
     int fieldLength = fieldEnd - lastFieldStart;
     strncpy(tmp, lastFieldStart, fieldLength);
     tmp[fieldLength] = '\0';
-    // Pad fields
+    // Pad left fields
     for(int i = 0 ; i < _leftPaddingsSize ; i++) {
       if(fieldCount == _leftPaddings[i].index) {
         char *padded = leftPadNumber(tmp, _leftPaddings[i].size);
@@ -73,6 +77,15 @@ char *MessageTransform::transform(char *message) {
         strcpy(tmp, _constants[i].value);
       }
     }
+    // Shrink fields
+    for(int i = 0 ; i < _rightShrinksSize ; i++) {
+      if(fieldCount == _rightShrinks[i].index) {
+        if(strlen(tmp) > _rightShrinks[i].size) {
+          tmp[_rightShrinks[i].size] = '\0';
+        }
+      }
+    }
+    // Drop fields
     strcat(outputMessage, tmp);
     strcat(outputMessage, ",");
     lastFieldStart = fieldEnd + 1;

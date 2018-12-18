@@ -10,13 +10,15 @@
 /**
  * GGA Message Transform
  */
-const FieldPadding ggaLeftPaddings[] = {
+const FieldResize ggaLeftPaddings[] = {
   {7, 2},
   {8, 4},
   {9, 7},
   {11, 6},
   {14, 4}
 };
+
+const FieldResize ggaRightShrinks[] = {};
 
 const FieldAddition ggaPrefixes[] = {};
 
@@ -31,7 +33,9 @@ const ConstantField ggaConstants[] = {
 const char *ggaMessageEnd = "0000";
 
 MessageTransform ggaTransform(ggaLeftPaddings,
-                              (sizeof(ggaLeftPaddings) / sizeof(FieldPadding)),
+                              (sizeof(ggaLeftPaddings) / sizeof(FieldResize)),
+                              ggaRightShrinks,
+                              (sizeof(ggaRightShrinks) / sizeof(FieldResize)),
                               ggaPrefixes,
                               (sizeof(ggaPrefixes) / sizeof(FieldAddition)),
                               ggaSuffixes,
@@ -43,18 +47,26 @@ MessageTransform ggaTransform(ggaLeftPaddings,
 /**
  * GLL Message Transform
  */
-const FieldPadding gllLeftPaddings[] = {};
+const FieldResize gllLeftPaddings[] = {};
+
+const FieldResize gllRightShrinks[] = {
+  {3, 9}
+};
 
 const FieldAddition gllPrefixes[] = {};
 
-const FieldAddition gllSuffixes[] = {};
+const FieldAddition gllSuffixes[] = {
+  {5, ".000"}
+};
 
 const ConstantField gllConstants[] = {};
 
 const char *gllMessageEnd = "";
 
 MessageTransform gllTransform(gllLeftPaddings,
-                              (sizeof(gllLeftPaddings) / sizeof(FieldPadding)),
+                              (sizeof(gllLeftPaddings) / sizeof(FieldResize)),
+                              gllRightShrinks,
+                              (sizeof(gllRightShrinks) / sizeof(FieldResize)),
                               gllPrefixes,
                               (sizeof(gllPrefixes) / sizeof(FieldAddition)),
                               gllSuffixes,
@@ -66,7 +78,9 @@ MessageTransform gllTransform(gllLeftPaddings,
 /**
  * RMC Message Transform
  */
-const FieldPadding rmcLeftPaddings[] = {};
+const FieldResize rmcLeftPaddings[] = {};
+
+const FieldResize rmcRightShrinks[] = {};
 
 const FieldAddition rmcPrefixes[] = {};
 
@@ -77,7 +91,9 @@ const ConstantField rmcConstants[] = {};
 const char *rmcMessageEnd = "";
 
 MessageTransform rmcTransform(rmcLeftPaddings,
-                              (sizeof(rmcLeftPaddings) / sizeof(FieldPadding)),
+                              (sizeof(rmcLeftPaddings) / sizeof(FieldResize)),
+                              rmcRightShrinks,
+                              (sizeof(rmcRightShrinks) / sizeof(FieldResize)),
                               rmcPrefixes,
                               (sizeof(rmcPrefixes) / sizeof(FieldAddition)),
                               rmcSuffixes,
@@ -89,7 +105,9 @@ MessageTransform rmcTransform(rmcLeftPaddings,
 /**
  * VTG Message Transform
  */
-const FieldPadding vtgLeftPaddings[] = {};
+const FieldResize vtgLeftPaddings[] = {};
+
+const FieldResize vtgRightShrinks[] = {};
 
 const FieldAddition vtgPrefixes[] = {};
 
@@ -100,19 +118,23 @@ const ConstantField vtgConstants[] = {};
 const char *vtgMessageEnd = "";
 
 MessageTransform vtgTransform(vtgLeftPaddings,
-                                     (sizeof(vtgLeftPaddings) / sizeof(FieldPadding)),
-                                     vtgPrefixes,
-                                     (sizeof(vtgPrefixes) / sizeof(FieldAddition)),
-                                     vtgSuffixes,
-                                     (sizeof(vtgSuffixes) / sizeof(FieldAddition)),
-                                     vtgConstants,
-                                     (sizeof(vtgConstants) / sizeof(ConstantField)),
-                                     vtgMessageEnd);
+                              (sizeof(vtgLeftPaddings) / sizeof(FieldResize)),
+                              vtgRightShrinks,
+                              (sizeof(vtgRightShrinks) / sizeof(FieldResize)),
+                              vtgPrefixes,
+                              (sizeof(vtgPrefixes) / sizeof(FieldAddition)),
+                              vtgSuffixes,
+                              (sizeof(vtgSuffixes) / sizeof(FieldAddition)),
+                              vtgConstants,
+                              (sizeof(vtgConstants) / sizeof(ConstantField)),
+                              vtgMessageEnd);
 
 /**
  * GSA Message Transform
  */
-const FieldPadding gsaLeftPaddings[] = {};
+const FieldResize gsaLeftPaddings[] = {};
+
+const FieldResize gsaRightShrinks[] = {};
 
 const FieldAddition gsaPrefixes[] = {};
 
@@ -123,7 +145,9 @@ const ConstantField gsaConstants[] = {};
 const char *gsaMessageEnd = "";
 
 MessageTransform gsaTransform(gsaLeftPaddings,
-                              (sizeof(gsaLeftPaddings) / sizeof(FieldPadding)),
+                              (sizeof(gsaLeftPaddings) / sizeof(FieldResize)),
+                              gsaRightShrinks,
+                              (sizeof(gsaRightShrinks) / sizeof(FieldResize)),
                               gsaPrefixes,
                               (sizeof(gsaPrefixes) / sizeof(FieldAddition)),
                               gsaSuffixes,
@@ -135,7 +159,9 @@ MessageTransform gsaTransform(gsaLeftPaddings,
 /**
  * GSV Message Transform
  */
-const FieldPadding gsvLeftPaddings[] = {};
+const FieldResize gsvLeftPaddings[] = {};
+
+const FieldResize gsvRightShrinks[] = {};
 
 const FieldAddition gsvPrefixes[] = {};
 
@@ -146,7 +172,9 @@ const ConstantField gsvConstants[] = {};
 const char *gsvMessageEnd = "";
 
 MessageTransform gsvTransform(gsvLeftPaddings,
-                              (sizeof(gsvLeftPaddings) / sizeof(FieldPadding)),
+                              (sizeof(gsvLeftPaddings) / sizeof(FieldResize)),
+                              gsvRightShrinks,
+                              (sizeof(gsvRightShrinks) / sizeof(FieldResize)),
                               gsvPrefixes,
                               (sizeof(gsvPrefixes) / sizeof(FieldAddition)),
                               gsvSuffixes,
@@ -158,7 +186,9 @@ MessageTransform gsvTransform(gsvLeftPaddings,
 /**
  * ZDA Message Transform
  */
-const FieldPadding zdaLeftPaddings[] = {};
+const FieldResize zdaLeftPaddings[] = {};
+
+const FieldResize zdaRightShrinks[] = {};
 
 const FieldAddition zdaPrefixes[] = {};
 
@@ -169,7 +199,9 @@ const ConstantField zdaConstants[] = {};
 const char *zdaMessageEnd = "";
 
 MessageTransform zdaTransform(zdaLeftPaddings,
-                              (sizeof(zdaLeftPaddings) / sizeof(FieldPadding)),
+                              (sizeof(zdaLeftPaddings) / sizeof(FieldResize)),
+                              zdaRightShrinks,
+                              (sizeof(zdaRightShrinks) / sizeof(FieldResize)),
                               zdaPrefixes,
                               (sizeof(zdaPrefixes) / sizeof(FieldAddition)),
                               zdaSuffixes,

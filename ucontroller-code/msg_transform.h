@@ -7,7 +7,7 @@
 #include "Arduino.h"
 #include "string_manip.h"
 
-struct FieldPadding {
+struct FieldResize {
   int index;
   int size;
 };
@@ -24,8 +24,10 @@ struct ConstantField {
 
 class MessageTransform {
   public:
-    MessageTransform(FieldPadding leftPaddings[],
+    MessageTransform(FieldResize leftPaddings[],
                      int leftPaddingsSize,
+                     FieldResize rightShrinks[],
+                     int rightShrinksSize,
                      FieldAddition prefixes[],
                      int prefixesSize,
                      FieldAddition suffixes[],
@@ -35,8 +37,10 @@ class MessageTransform {
                      const char *messageEnd);
     char *transform(char *message);
   private:
-    FieldPadding *_leftPaddings;
+    FieldResize *_leftPaddings;
     int _leftPaddingsSize;
+    FieldResize *_rightShrinks;
+    int _rightShrinksSize;
     FieldAddition *_prefixes;
     int _prefixesSize;
     FieldAddition *_suffixes;
