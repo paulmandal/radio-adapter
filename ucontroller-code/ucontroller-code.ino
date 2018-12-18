@@ -11,7 +11,7 @@
 #include "message_buffer.h"
 #include "string_manip.h"
 #include "msg_transform.h"
-#include "transform_configs.h"
+#include "transform_mapping.h"
 
 const int MSG_BUFFER_SIZE = 256;
 
@@ -112,7 +112,7 @@ void handleMessage(char *message) {
   char *outputMessage;
   for(int i = 0 ; i < (sizeof(transformMap) / sizeof(TransformMapping)) ; i++) {
     if(strncmp(message, transformMap[i].nmeaMessageType, 6) == 0) {
-      outputMessage = transformMap[i].transformer.transform(message);
+      outputMessage = transformMap[i].transform(message);
       break;
     }
   }
