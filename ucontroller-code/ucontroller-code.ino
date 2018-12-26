@@ -3,7 +3,7 @@
  * the fixed-lenght format used by the Yaesu VX-8DR
  */
 // Uncomment the line below to enable debugging output to the UC-DBG port
-#define DEBUG_PORT_OUTPUT_ENABLED
+//#define DEBUG_PORT_OUTPUT_ENABLED
 
 #include <NeoSWSerial.h>
 #include <NeoHWSerial.h>

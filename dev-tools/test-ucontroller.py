@@ -45,7 +45,8 @@ with open(INPUT_FILE, 'r') as f:
 
 for line in input_lines:
     line = line.rstrip()
-    gps_port.write('{line}\n'.format(line=line).encode())
+    encoded_nmea_msg = '{line}\n'.format(line=line).encode()
+    gps_port.write(encoded_nmea_msg)
     print('   wrote: {line}'.format(line=line))
 
     while True:
