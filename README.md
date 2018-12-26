@@ -17,6 +17,10 @@ Adapter board to connect a Yaesu VX-8DR with a Garmin GPSmap64 and various .mil 
 | circuit-board | Eagle circuit diagrams and PCB layouts for the adapter board |
 | dev-tools | Various Python scripts that were useful during development |
 
+# Important Note
+
+The ATmega328p chips I got needed to have their fuses set, there is a script `set-fuses.sh` that will do this for you.  You may need to change the programmer from `usbtiny` to whatever you have on hand.
+
 # References
 
 This project borrows heavily from these sources:
