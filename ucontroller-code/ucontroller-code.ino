@@ -108,7 +108,7 @@ void handleMessage(char *message) {
   }
 
   // Determine the message type and apply the appropriate transform
-  char *outputMessage;
+  char *outputMessage = NULL;
   for(int i = 0 ; i < (sizeof(transformMap) / sizeof(TransformMapping)) ; i++) {
     if(strncmp(message, transformMap[i].nmeaMessageType, 6) == 0) {
       outputMessage = transformMap[i].transform(message);
@@ -116,7 +116,7 @@ void handleMessage(char *message) {
     }
   }
 
-  if(strlen(outputMessage) > 0 && xferMessages) {
+  if(outputMessage != NULL && strlen(outputMessage) > 0 && xferMessages) {
     sendToRadio(outputMessage);
   }
   free(outputMessage);
