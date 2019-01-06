@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.6.3">
+<eagle version="9.2.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -1176,6 +1176,9 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <param name="checkRestrict" value="1"/>
 <param name="checkStop" value="0"/>
 <param name="checkValues" value="0"/>
+<param name="checkNames" value="1"/>
+<param name="checkWireStubs" value="1"/>
+<param name="checkPolygonWidth" value="0"/>
 <param name="useDiameter" value="13"/>
 <param name="maxErrors" value="50"/>
 </designrules>
@@ -1356,7 +1359,10 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <element name="C9" library="adafruit" library_urn="urn:adsk.eagle:library:420" package="E2,5-5" value="10uF" x="36.703" y="9.271" smashed="yes" rot="R90">
 <attribute name="VALUE" x="40.386" y="11.811" size="0.6096" layer="25" ratio="10" rot="R180"/>
 </element>
-<element name="EXP-GND" library="SparkFun-Connectors" package="1X02" value="" x="46.355" y="34.671" rot="R90"/>
+<element name="EXP-GND" library="SparkFun-Connectors" package="1X02" value="" x="46.355" y="34.671" smashed="yes" rot="R90">
+<attribute name="NAME" x="44.958" y="33.401" size="0.6096" layer="25" font="vector" ratio="20" rot="R90"/>
+<attribute name="VALUE" x="48.387" y="33.401" size="0.6096" layer="27" font="vector" ratio="20" rot="R90"/>
+</element>
 <element name="EXT-GND" library="SparkFun-Connectors" package="1X02" value="" x="49.149" y="34.671" smashed="yes" rot="R90">
 <attribute name="NAME" x="49.657" y="33.147" size="0.6096" layer="25" font="vector" ratio="20" rot="R270"/>
 <attribute name="VALUE" x="51.181" y="33.401" size="0.6096" layer="27" font="vector" ratio="20" rot="R90"/>
@@ -1395,9 +1401,9 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <attribute name="PROD_ID" value="RES-07853" x="48.26" y="7.493" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="VALUE" x="48.26" y="8.255" size="0.6096" layer="25" font="vector" ratio="20" rot="R180" align="top-center"/>
 </element>
-<element name="R2" library="SparkFun-Resistors" package="0603" value="120" x="33.655" y="30.099" smashed="yes" rot="R180">
-<attribute name="PROD_ID" value=" " x="33.655" y="30.099" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="VALUE" x="33.655" y="28.702" size="0.6096" layer="25" font="vector" ratio="20" rot="R180" align="top-center"/>
+<element name="R2" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="0603" package3d_urn="urn:adsk.eagle:package:39650/1" value="1k" x="33.655" y="30.099" smashed="yes" rot="R180">
+<attribute name="PROD_ID" value="RES-07856" x="33.655" y="30.099" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="VALUE" value="1k" x="33.655" y="28.702" size="0.6096" layer="25" font="vector" ratio="20" rot="R180" align="top-center"/>
 </element>
 <element name="R3" library="SparkFun-Resistors" package="0603" value="2.0k" x="32.131" y="7.62" smashed="yes">
 <attribute name="PROD_ID" value="RES-08296" x="32.131" y="7.62" size="1.778" layer="27" display="off"/>
@@ -1414,7 +1420,10 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <element name="RADIO" library="Rembrandt Electronics - JST XH Connectors v1-0" package="JST-XH-07-PACKAGE-LONG-PAD" value="JST-XH-07-PIN-LONG-PAD" x="40.386" y="2.794" smashed="yes">
 <attribute name="NAME" x="29.831" y="0.654" size="0.6096" layer="25" ratio="10" rot="R90"/>
 </element>
-<element name="SPK-SW" library="SparkFun-Connectors" package="1X02" value="" x="46.228" y="10.541"/>
+<element name="SPK-SW" library="SparkFun-Connectors" package="1X02" value="" x="46.228" y="10.541" smashed="yes">
+<attribute name="NAME" x="44.958" y="11.938" size="0.6096" layer="25" font="vector" ratio="20"/>
+<attribute name="VALUE" x="44.958" y="8.509" size="0.6096" layer="27" font="vector" ratio="20"/>
+</element>
 <element name="SPK-XFMR" library="trafo-xicon" library_urn="urn:adsk.eagle:library:393" package="42TL" package3d_urn="urn:adsk.eagle:package:28185/1" value="42TL016" x="42.037" y="25.4" smashed="yes">
 <attribute name="MF" value="" x="42.037" y="25.4" size="1.778" layer="27" display="off"/>
 <attribute name="MPN" value="" x="42.037" y="25.4" size="1.778" layer="27" display="off"/>
@@ -1472,13 +1481,13 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <attribute name="PROD_ID" value="RES-07856" x="13.97" y="30.607" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="VALUE" x="13.97" y="29.21" size="0.6096" layer="25" font="vector" ratio="20" rot="R180" align="top-center"/>
 </element>
-<element name="R8" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="0603" package3d_urn="urn:adsk.eagle:package:39650/1" value="100" x="34.036" y="19.05" smashed="yes">
-<attribute name="PROD_ID" value="RES-07863" x="34.036" y="19.05" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="34.036" y="20.447" size="0.6096" layer="25" font="vector" ratio="20" align="top-center"/>
+<element name="R8" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="0603" package3d_urn="urn:adsk.eagle:package:39650/1" value="1k" x="34.036" y="19.05" smashed="yes">
+<attribute name="PROD_ID" value="RES-07856" x="34.036" y="19.05" size="1.778" layer="27" display="off"/>
+<attribute name="VALUE" value="1k" x="34.036" y="20.447" size="0.6096" layer="25" font="vector" ratio="20" align="top-center"/>
 </element>
-<element name="R9" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="0603" package3d_urn="urn:adsk.eagle:package:39650/1" value="100" x="37.465" y="37.846" smashed="yes" rot="R180">
-<attribute name="PROD_ID" value="RES-07863" x="37.465" y="37.846" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="VALUE" x="37.465" y="36.449" size="0.6096" layer="25" font="vector" ratio="20" rot="R180" align="top-center"/>
+<element name="R9" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="0603" package3d_urn="urn:adsk.eagle:package:39650/1" value="1k" x="37.465" y="37.846" smashed="yes" rot="R180">
+<attribute name="PROD_ID" value="RES-07856" x="37.465" y="37.846" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="VALUE" value="1k" x="37.465" y="36.449" size="0.6096" layer="25" font="vector" ratio="20" rot="R180" align="top-center"/>
 </element>
 </elements>
 <signals>
@@ -2083,6 +2092,13 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <wire x1="38.315" y1="37.846" x2="41.402" y2="37.084" width="0.1524" layer="1"/>
 </signal>
 </signals>
+<mfgpreviewcolors>
+<mfgpreviewcolor name="soldermaskcolor" color="0xC8008000"/>
+<mfgpreviewcolor name="silkscreencolor" color="0xFFFEFEFE"/>
+<mfgpreviewcolor name="backgroundcolor" color="0xFF282828"/>
+<mfgpreviewcolor name="coppercolor" color="0xFFFFBF00"/>
+<mfgpreviewcolor name="substratecolor" color="0xFF786E46"/>
+</mfgpreviewcolors>
 </board>
 </drawing>
 <compatibility>
