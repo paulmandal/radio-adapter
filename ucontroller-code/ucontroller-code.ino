@@ -116,7 +116,12 @@ void handleMessage(char *message) {
     }
   }
 
-  if(outputMessage != NULL && strlen(outputMessage) > 0 && xferMessages) {
+  // Return if no output message was produced by transforms
+  if(outputMessage == NULL) {
+    return;
+  }
+
+  if(strlen(outputMessage) > 0 && xferMessages) {
     sendToRadio(outputMessage);
   }
   free(outputMessage);
@@ -127,12 +132,12 @@ void handleMessage(char *message) {
  */
 void sendToRadio(char *message) {
   radioSerial.listen();
-  radioSerial.print(message);
+  radioSerial.println(message);
 
 #ifdef DEBUG_PORT_OUTPUT_ENABLED
   debugSerial.listen();
   debugSerial.print("uC->radio: ");
-  debugSerial.print(message);
+  debugSerial.println(message);
 #endif
 }
 

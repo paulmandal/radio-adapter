@@ -12,11 +12,12 @@
  * Yaesu VX-8DR NMEA message
  */
 char *defaultTransform(char *message) {
-  char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
   // Check if we have a fix before attempting to translate msg
   if(message[7] == ',') {
-    return outputMessage;
+    return NULL;
   }
+
+  char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
 
   // No processing, just copy the message to our output allocation
   strcpy(outputMessage, message);
@@ -28,11 +29,12 @@ char *defaultTransform(char *message) {
  * Yaesu VX-8DR NMEA message
  */
 char *ggaTransform(char *message) {
-  char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
   // Check if we have a fix before attempting to translate msg
   if(message[7] == ',') {
-    return outputMessage;
+    return NULL;
   }
+
+  char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
 
   strtok(message, ",");
   double timestamp = atof(strtok(NULL, ","));;
@@ -50,7 +52,7 @@ char *ggaTransform(char *message) {
   long timeSinceLastUpdate = atol(strtok(NULL, ","));
   long stationId = atol(strtok(NULL, "*"));
 
-  sprintf(outputMessage, "$GPGGA,%010.3f,%09.4f,%s,%010.4f,%s,%1d,%02d,%04.1f,%07.1f,%s,%06.1f,%s,%05.1f,%04d*FF\n",
+  sprintf(outputMessage, "$GPGGA,%010.3f,%09.4f,%s,%010.4f,%s,%1d,%02d,%04.1f,%07.1f,%s,%06.1f,%s,%05.1f,%04d*FF",
                          timestamp,
                          lat,
                          northSouth,
@@ -73,11 +75,12 @@ char *ggaTransform(char *message) {
  * Yaesu VX-8DR NMEA message
  */
 char *gllTransform(char *message) {
-  char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
   // Check if we have a fix before attempting to translate msg
   if(message[7] == ',') {
-    return outputMessage;
+    return NULL;
   }
+
+  char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
 
   strtok(message, ",");
   double lat = atof(strtok(NULL, ","));
@@ -88,7 +91,7 @@ char *gllTransform(char *message) {
   char *statusStr = strtok(NULL, ",");
   char *unknown = strtok(NULL, "*");
 
-  sprintf(outputMessage, "$GPGLL,%09.4f,%s,%09.4f,%s,%010.3f,%s,%s*FF\n",
+  sprintf(outputMessage, "$GPGLL,%09.4f,%s,%09.4f,%s,%010.3f,%s,%s*FF",
                          lat,
                          northSouth,
                          lon,
@@ -105,11 +108,12 @@ char *gllTransform(char *message) {
  * Yaesu VX-8DR NMEA message
  */
 char *rmcTransform(char *message) {
-  char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
   // Check if we have a fix before attempting to translate msg
   if(message[7] == ',') {
-    return outputMessage;
+    return NULL;
   }
+
+  char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
 
   strtok(message, ",");
   double timestamp = atof(strtok(NULL, ","));
@@ -124,7 +128,7 @@ char *rmcTransform(char *message) {
   float variation = atof(strtok(NULL, ","));
   char *trackEastWest = strtok(NULL, ",");
 
-  sprintf(outputMessage, "$GPRMC,%010.3f,%s,%09.4f,%s,%010.4f,%s,%07.2f,%06.2f,%06ld,,*FF\n",
+  sprintf(outputMessage, "$GPRMC,%010.3f,%s,%09.4f,%s,%010.4f,%s,%07.2f,%06.2f,%06ld,,*FF",
                          timestamp,
                          statusStr,
                          lat,
@@ -143,11 +147,12 @@ char *rmcTransform(char *message) {
  * Yaesu VX-8DR NMEA message
  */
 char *vtgTransform(char *message) {
-  char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
   // Check if we have a fix before attempting to translate msg
   if(message[7] == ',') {
-    return outputMessage;
+    return NULL;
   }
+
+  char *outputMessage = (char *)calloc(BUFFER_SIZE, sizeof(char));
 
   strtok(message, ",");
   double degreesTrue = atof(strtok(NULL, ","));
@@ -160,7 +165,7 @@ char *vtgTransform(char *message) {
   char *speedOverGroundUnit = strtok(NULL, ",");
   char *unknown = strtok(NULL, "*");
 
-  sprintf(outputMessage, "$GPVTG,,%s,,%s,%4.2f,%s,%3.1f,%s,%s*FF\n",
+  sprintf(outputMessage, "$GPVTG,,%s,,%s,%4.2f,%s,%3.1f,%s,%s*FF",
                          degreesTrueRelative,
                          degreesMagneticRelative,
                          currentSpeed,
