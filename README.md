@@ -1,7 +1,8 @@
 # Radio Adapter Board
 Adapter board to connect a Yaesu VX-8DR with a Garmin GPSmap64 and various .mil microphones
 
-![alt text](https://github.com/paulmandal/radio-adapter/raw/master/pictures/finished_pcb.jpg "PCB")
+![alt text](https://github.com/paulmandal/radio-adapter/raw/master/pictures/v2_pcb.png "V2 PCB")
+![alt text](https://github.com/paulmandal/radio-adapter/raw/master/pictures/v2_complete.jpg "Complete System")
 
 # Requirements
 
