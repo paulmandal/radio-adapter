@@ -1,0 +1,16 @@
+"Qty";"Value";"Device";"Package";"Parts";"Description";"MF";"MPN";"OC_FARNELL";"OC_NEWARK";"PROD_ID";"VALUE";
+"3";"";"CONN_02";"1X02";"EXP-GND, EXT-GND, SPK-SW";"Multi connection point. Often used as Generic Header-pin footprint for 0.1 inch spaced/style header connections";"";"";"";"";"";"";
+"2";"100";"100OHM-0603-1/4W-5%";"0603";"R8, R9";"100Ω resistor";"";"";"";"";"RES-12438";"100";
+"2";"100k";"TRIM_US-S64W";"S64W";"R7, R10";"POTENTIOMETER";"";"";"";"";"";"";
+"5";"10uF";"CPOL-USE2.5-5";"E2,5-5";"C1, C2, C5, C9, C21";"POLARIZED CAPACITOR, American symbol";"";"";"";"";"";"";
+"1";"120";"RESISTOR0603";"0603";"R2";"Generic Resistor Package";"";"";"";"";" ";" ";
+"1";"1k";"1KOHM-0603-1/10W-1%";"0603";"R6";"1kΩ resistor";"";"";"";"";"RES-07856";"1k";
+"1";"2.0k";"2.0KOHM-0603-1/10W-5%";"0603";"R3";"2kΩ resistor";"";"";"";"";"RES-08296";"2.0k";
+"1";"2.2k";"2.2KOHM-0603-1/10W-1%";"0603";"R4";"2.2kΩ resistor";"";"";"";"";"RES-08272";"2.2k";
+"1";"22k";"22KOHM-0603-1/10W-1%";"0603";"R1";"22kΩ resistor";"";"";"";"";"RES-07853";"22k";
+"2";"42TL016";"42TL016";"42TL";"MIC-XFMR, SPK-XFMR";"Xicon Micro-Mini EI-12 Audio Transformers 42TL/42TC/42TM Series";"";"";"unknown";"unknown";"";"";
+"1";"4N25SM";"4N25SM";"DIL6-SMD";"OK1";"General Purpose 6-Pin Phototransistor Optocouplers";"FAIRCHILD SEMICONDUCTOR";"4N25SM";"1021152";"34C2020";"";"";
+"2";"BC547B";"BC547B";"TO92";"Q1, Q2";"NPN Transistor";"";"";"";"";"";"";
+"1";"JST-XH-02-PIN-LONG-PAD";"JST-XH-02-PIN-LONG-PAD";"JST-XH-02-PACKAGE-LONG-PAD";"12V-IN";"JST XH Connector 2 Pin";"";"";"";"";"";"";
+"1";"JST-XH-06-PIN-LONG-PAD";"JST-XH-06-PIN-LONG-PAD";"JST-XH-06-PACKAGE-LONG-PAD";"HANDSET";"JST XH Connector 2 Pin";"";"";"";"";"";"";
+"1";"JST-XH-07-PIN-LONG-PAD";"JST-XH-07-PIN-LONG-PAD";"JST-XH-07-PACKAGE-LONG-PAD";"RADIO";"JST XH Connector 2 Pin";"";"";"";"";"";"";
